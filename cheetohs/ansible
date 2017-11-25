@@ -1,0 +1,2 @@
+# Get facts gathered from Windows server.
+$ ansible windows -i inventory.yaml -m setup --extra-vars="ansible_port=5986 ansible_connection=winrm ansible_winrm_server_cert_validation=ignore" -u jay --ask-pass
