@@ -1,0 +1,14 @@
+# Show installed packages.
+apt list --installed
+
+# Search for available packages.
+apt search <keyworld>
+
+# Check Ubuntu version.
+lsb_release -a
+
+# Test UDP packets listeners.
+echo "Hello" > /dev/udp/127.0.0.1/5005
+
+# Python 3.6 pip install.
+python3.6 -m pip install <package>
