@@ -7,3 +7,6 @@ $ ansible-galaxy list
 $ ansible-galaxy login -vvv
 $ ansible-galaxy init <role_name>
 $ ansible-galaxy install -r requirements.yml
+
+# Run on another port.
+-e ansible_ssh_port=6718
