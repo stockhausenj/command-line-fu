@@ -17,3 +17,9 @@ python3.6 -m pip install <package>
 ## Deploy SSH Key
 ssh-copy-id -i ~/.ssh/some_key.pub person@yourserver.com
 ssh person@yourserver.com 'chcon -t ssh_home_t ~/.ssh/authorized_keys'
+
+## See which filesystems are supported.
+cat /proc/filesystems
+
+## Scan local network for hosts.
+nmap -sP 192.168.0.1/24
