@@ -1,19 +1,18 @@
 #!/bin/bash
 
-url="http://www.moongiant.com/phase/today"
+url="https://www.moongiant.com/phase/today"
 
 pattern="Illumination"
 
 phase="$( curl -s "$url" | grep "$pattern" | tr ',' "\n" | grep "$pattern" | sed 's/[^0-9]//g' )"
 
-url_ago="http://www.moongiant.com/phase"
+url_ago="https://www.moongiant.com/phase"
 
-eval $( date --date="1 days ago" +"mon=%m date=%d year=%Y" )
+eval $( date --date="1 days ago" +"mon=%m day=%d year=%Y" )
 
 ydayurl="$url_ago/$mon/$day/$year"
 
 yillumlevel="$( curl -s "$ydayurl" | grep "$pattern" | tr ',' "\n" | grep "$pattern" | sed 's/[^0-9]//g' )"
-
 
 if [ $phase -gt $yillumlevel ]; then
   waxwane="waxing"
