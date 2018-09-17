@@ -1,1 +1,6 @@
-site_name: My Docs
+site_name: MkLorum
+nav:
+    - Home: index.md
+    - About: about.md
+    - cgroups: cgroups.md
+theme: readthedocs
