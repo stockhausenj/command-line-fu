@@ -110,18 +110,18 @@
                 <h1 id="cgroups">cgroups</h1>
 <p>view cgroup info of process via pid (ubuntu 18.04)<br/>
 <code>ps -o cgroup 12345</code></p>
-<p>create memory cgroup (ubuntu 18.04)\
+<p>create memory cgroup (ubuntu 18.04)<br/>
 <code>sudo mkdir /sys/fs/cgroup/memory/cgroup-a</code></p>
-<p>limit memory of anything running in the cgroup cgroup-a to 4096 bytes (ubuntu 18.04)\
+<p>limit memory of anything running in the cgroup cgroup-a to 4096 bytes (ubuntu 18.04)<br/>
 <code>echo 4096 | sudo tee /sys/fs/cgroup/memory/cgroup-a/memory.limit_in_bytes</code></p>
-<p>add process via pid to the cgroup cgroup-a (ubuntu 18.04)\
+<p>add process via pid to the cgroup cgroup-a (ubuntu 18.04)<br/>
 <code>sudo echo 12345 &gt; /sys/fs/cgroup/memory/cgroup-a/cgroup.procs</code></p>
 <h2 id="using-libcgroup">using libcgroup</h2>
-<p>create memory cgroup cgroup-a (ubuntu 18.04)\
+<p>create memory cgroup cgroup-a (ubuntu 18.04)<br/>
 <code>sudo cgcreate -g memory:cgroup-a</code></p>
-<p>delete memory cgroup cgroup-a (ubuntu 18.04)\
+<p>delete memory cgroup cgroup-a (ubuntu 18.04)<br/>
 <code>sudo cgdelete memory:cgroup-a</code></p>
-<p>run app app-a in cgroup cgroup-a (ubuntu 18.04)\
+<p>run app app-a in cgroup cgroup-a (ubuntu 18.04)<br/>
 <code>sudo cgexec -g memory:cgroup-a app-a</code></p>
               
             </div>
