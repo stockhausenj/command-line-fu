@@ -3,4 +3,5 @@ nav:
     - Home: index.md
     - About: about.md
     - cgroups: cgroups.md
+    - Linux System Calls: linux-system-calls.md
 theme: readthedocs
