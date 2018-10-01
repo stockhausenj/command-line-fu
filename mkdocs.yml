@@ -1,5 +1,6 @@
 site_name: MkLorum
 nav:
+    - Home: index.md
     - cgroups: cgroups.md
     - Linux System Calls: linux-system-calls.md
 theme: readthedocs
