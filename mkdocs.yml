@@ -3,4 +3,5 @@ nav:
     - Home: index.md
     - cgroups: cgroups.md
     - Linux System Calls: linux-system-calls.md
+    - Kubernetes: kubernetes.md
 theme: readthedocs
