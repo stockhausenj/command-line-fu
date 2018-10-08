@@ -7,16 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="shortcut icon" href="./img/favicon.ico">
-  <title>MkLorum</title>
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Kubernetes - MkLorum</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
-  <script src="./js/jquery-2.1.1.min.js" defer></script>
-  <script src="./js/modernizr-2.8.3.min.js" defer></script>
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Kubernetes";
+    var mkdocs_page_input_path = "kubernetes.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
@@ -29,9 +36,9 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href="./." class="icon icon-home"> MkLorum</a>
+        <a href=".." class="icon icon-home"> MkLorum</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
@@ -43,22 +50,34 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="./.">Home</a>
+    <a class="" href="..">Home</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="./cgroups/">cgroups</a>
+    <a class="" href="../cgroups/">cgroups</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="./linux-system-calls/">Linux System Calls</a>
+    <a class="" href="../linux-system-calls/">Linux System Calls</a>
 	    </li>
           
-            <li class="toctree-l1">
+            <li class="toctree-l1 current">
 		
-    <a class="" href="./kubernetes/">Kubernetes</a>
+    <a class="current" href="./">Kubernetes</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#kubernetes">Kubernetes</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#ubuntu-1804">Ubuntu 18.04</a></li>
+        
+        </ul>
+    
+
+    </ul>
 	    </li>
           
         </ul>
@@ -71,7 +90,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="./.">MkLorum</a>
+        <a href="..">MkLorum</a>
       </nav>
 
       
@@ -79,9 +98,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="./.">Docs</a> &raquo;</li>
+    <li><a href="..">Docs</a> &raquo;</li>
     
+      
     
+    <li>Kubernetes</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -91,22 +112,29 @@
           <div role="main">
             <div class="section">
               
-
-  <h1 id="search">Search Results</h1>
-
-  <form id="content_search" action="search.html">
-    <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
-    <input name="q" id="mkdocs-search-query" type="text" class="search_input search-query ui-autocomplete-input" placeholder="Search the Docs" autocomplete="off" autofocus title="Type search term here">
-  </form>
-
-  <div id="mkdocs-search-results" class="search-results">
-    Searching...
-  </div>
-
-
+                <h1 id="kubernetes">Kubernetes</h1>
+<h2 id="ubuntu-1804">Ubuntu 18.04</h2>
+<h3 id="kubectl">kubectl</h3>
+<p>get services<br/>
+<code>kubectl get services</code></p>
+<p>get deployments<br/>
+<code>kubectl get deployments</code></p>
+<h3 id="minikube">minikube</h3>
+<p>start with virtualbox<br/>
+<code>minikube start --vm-driver=virtualbox</code></p>
+<p>get services<br/>
+<code>minikube service list</code></p>
+              
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../linux-system-calls/" class="btn btn-neutral" title="Linux System Calls"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -130,12 +158,14 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
+        <span><a href="../linux-system-calls/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
       
     </span>
 </div>
-    <script>var base_url = '.';</script>
-    <script src="./js/theme.js" defer></script>
-      <script src="./search/main.js" defer></script>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
 
 </body>
 </html>
