@@ -22,11 +22,31 @@ Change file descriptor.
 // redirect stderr to stdout
 dup2(1, 2);
 ```
-# setrlimit
-Set resource limits.
+## prlimit
+Get and set process resource limits. This routine makes ULIMIT(3) obsolete.
 ```c
-struct rlimit rl; 
-getrlimit (RLIMIT_CPU, &rl); 
-rl.rlim_cur = 1; 
-setrlimit (RLIMIT_CPU, &rl); 
+struct rlimit old, new; 
+struct rlimit *newp; 
+pid_t pid;
+
+new.rlim_cur = /* soft limit */
+new.rlim_max = /* hard limit */
+newp = &new;
+
+prlimit(pid, RLIMIT_CPU, newp, &old) /* resource options in PRLIMIT(2) */
 ```
+There is also a CLI tool for prlimit in PRLIMIT(1).
+## printk
+Logging mechanism for debugging kernel space code.<br>
+```c
+#include <linux/kernel.h>  /* Needed for KERN_ALERT */
+printk("<0>System dead.\n");
+```
+### from userspace
+```
+$ echo "2Writing critical printk messages from userspace" >/dev/kmsg
+$ dmesg
+```
+### console_loglevel
+To determine current console_loglevel: `$ cat /proc/sys/kernel/printk`<br>
+The output values are in respect: current default minimum boot-time-default
