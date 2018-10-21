@@ -71,10 +71,11 @@
         
             <li><a class="toctree-l3" href="#dup2">dup2</a></li>
         
+            <li><a class="toctree-l3" href="#prlimit">prlimit</a></li>
+        
+            <li><a class="toctree-l3" href="#printk">printk</a></li>
+        
         </ul>
-    
-
-    <li class="toctree-l2"><a href="#setrlimit">setrlimit</a></li>
     
 
     </ul>
@@ -140,13 +141,34 @@ dup2(2, 42);
 dup2(1, 2);
 </code></pre>
 
-<h1 id="setrlimit">setrlimit</h1>
-<p>Set resource limits.</p>
-<pre><code class="c">struct rlimit rl; 
-getrlimit (RLIMIT_CPU, &amp;rl); 
-rl.rlim_cur = 1; 
-setrlimit (RLIMIT_CPU, &amp;rl); 
+<h2 id="prlimit">prlimit</h2>
+<p>Get and set process resource limits. This routine makes ULIMIT(3) obsolete.</p>
+<pre><code class="c">struct rlimit old, new; 
+struct rlimit *newp; 
+pid_t pid;
+
+new.rlim_cur = /* soft limit */
+new.rlim_max = /* hard limit */
+newp = &amp;new;
+
+prlimit(pid, RLIMIT_CPU, newp, &amp;old) /* resource options in PRLIMIT(2) */
 </code></pre>
+
+<p>There is also a CLI tool for prlimit in PRLIMIT(1).</p>
+<h2 id="printk">printk</h2>
+<p>Logging mechanism for debugging kernel space code.<br></p>
+<pre><code class="c">#include &lt;linux/kernel.h&gt;  /* Needed for KERN_ALERT */
+printk(&quot;&lt;0&gt;System dead.\n&quot;);
+</code></pre>
+
+<h3 id="from-userspace">from userspace</h3>
+<pre><code>$ echo &quot;2Writing critical printk messages from userspace&quot; &gt;/dev/kmsg
+$ dmesg
+</code></pre>
+
+<h3 id="console_loglevel">console_loglevel</h3>
+<p>To determine current console_loglevel: <code>$ cat /proc/sys/kernel/printk</code><br>
+The output values are in respect: current default minimum boot-time-default</p>
               
             </div>
           </div>
