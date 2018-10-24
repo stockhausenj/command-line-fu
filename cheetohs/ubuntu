@@ -27,6 +27,9 @@ nmap -sP 192.168.0.1/24
 ## Compare real, effective and saved id of process.
 ps -eo pid,ruid,euid,suid | grep 1234
 
+## Check what ports are in use.
+lsof -i -P -n | grep LISTEN
+
 # Ubuntu 18.04
 
 ## Compare real, effective and saved id of process.
