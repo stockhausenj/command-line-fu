@@ -115,22 +115,23 @@
                 <h1 id="kubernetes">Kubernetes</h1>
 <h2 id="ubuntu-1804">Ubuntu 18.04</h2>
 <h3 id="kubectl">kubectl</h3>
-<p>get services<br/>
-<code>kubectl get services</code></p>
-<p>get deployments<br/>
-<code>kubectl get deployments</code></p>
-<p>get pods running an application<br/>
-<code>kubectl get pods --selector="&lt;selector&gt;" --output=wide</code></p>
-<p>Access via NodePort<br/></p>
-<pre><code>service=&lt;service name&gt;
-curl $(kubectl get nodes | sed -n 2p | awk '{print $1}'):$(kubectl describe service $service | grep NodePort: | awk '{print $3}' | sed 's/\/.*//')
+<p>get assets<br/></p>
+<pre><code class="bash">kubectl get &lt;services|deployments|nodes|pods&gt;
 </code></pre>
 
-<h3 id="minikube">minikube</h3>
-<p>start with virtualbox<br/>
-<code>minikube start --vm-driver=virtualbox</code></p>
-<p>get services<br/>
-<code>minikube service list</code></p>
+<p>describe assets in more detail<br/></p>
+<pre><code class="bash">kubectl describe &lt;asset&gt; &lt;asset name&gt;
+</code></pre>
+
+<p>get pods that a deployment is running on<br/></p>
+<pre><code class="bash">deployment=&lt;deployment name&gt;
+kubectl get pods --selector=&quot;$(kubectl describe deployments hello-world | grep Selector | awk '{print $2}')&quot; --output=wide`
+</code></pre>
+
+<p>curl service that is exposed via NodePort<br/></p>
+<pre><code class="bash">service=&lt;service name&gt;
+curl $(kubectl get nodes | sed -n 2p | awk '{print $1}'):$(kubectl describe service $service | grep NodePort: | awk '{print $3}' | sed 's/\/.*//')
+</code></pre>
               
             </div>
           </div>
