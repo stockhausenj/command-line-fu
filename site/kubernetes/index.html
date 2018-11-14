@@ -119,6 +119,13 @@
 <code>kubectl get services</code></p>
 <p>get deployments<br/>
 <code>kubectl get deployments</code></p>
+<p>get pods running an application<br/>
+<code>kubectl get pods --selector="&lt;selector&gt;" --output=wide</code></p>
+<p>Access via NodePort<br/></p>
+<pre><code>service=&lt;service name&gt;
+curl $(kubectl get nodes | sed -n 2p | awk '{print $1}'):$(kubectl describe service $service | grep NodePort: | awk '{print $3}' | sed 's/\/.*//')
+</code></pre>
+
 <h3 id="minikube">minikube</h3>
 <p>start with virtualbox<br/>
 <code>minikube start --vm-driver=virtualbox</code></p>
