@@ -132,6 +132,12 @@ kubectl get pods --selector=&quot;$(kubectl describe deployments $deployment | g
 <pre><code class="bash">service=&lt;service name&gt;
 curl $(kubectl get nodes | sed -n 2p | awk '{print $1}'):$(kubectl describe service $service | grep NodePort: | awk '{print $3}' | sed 's/\/.*//')
 </code></pre>
+
+<p>delete service and deployment via deployment name<br/></p>
+<pre><code class="bash">deployment=&lt;deployment name&gt;
+kubectl delete services $(kubectl get services --selector=$(kubectl describe deployments $deployment | grep Selector | awk '{print $2}') | sed -n 2p | awk '{print $1}') 
+kubectl delete deployment $deployment
+</code></pre>
               
             </div>
           </div>
