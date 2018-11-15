@@ -125,7 +125,7 @@
 
 <p>get pods that a deployment is running on<br/></p>
 <pre><code class="bash">deployment=&lt;deployment name&gt;
-kubectl get pods --selector=&quot;$(kubectl describe deployments hello-world | grep Selector | awk '{print $2}')&quot; --output=wide`
+kubectl get pods --selector=&quot;$(kubectl describe deployments $deployment | grep Selector | awk '{print $2}')&quot; --output=wide`
 </code></pre>
 
 <p>curl service that is exposed via NodePort<br/></p>
