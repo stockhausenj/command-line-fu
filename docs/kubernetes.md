@@ -21,3 +21,9 @@ curl service that is exposed via NodePort<br/>
 service=<service name>
 curl $(kubectl get nodes | sed -n 2p | awk '{print $1}'):$(kubectl describe service $service | grep NodePort: | awk '{print $3}' | sed 's/\/.*//')
 ```
+delete service and deployment via deployment name<br/>
+```bash
+deployment=<deployment name>
+kubectl delete services $(kubectl get services --selector=$(kubectl describe deployments $deployment | grep Selector | awk '{print $2}') | sed -n 2p | awk '{print $1}') 
+kubectl delete deployment $deployment
+```
