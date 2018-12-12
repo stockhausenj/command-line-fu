@@ -1,8 +1,9 @@
 # Kubernetes
-
 ## Ubuntu 18.04
-
 ## kubectl
+### General Practices 
+* use `--context=` to ensure correct context is targeted
+### CLI
 get assets<br/>
 ```bash
 kubectl get <Services|Deployments|Nodes|Pods>

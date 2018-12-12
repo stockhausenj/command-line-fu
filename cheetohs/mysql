@@ -1,0 +1,12 @@
+# MySQL 5.7.12
+## Create user with ro access to database
+grant select on mydatabase.* to myuser@'%' identified by 'mypassword'; 
+
+## Show user grants
+show grants for myuser;
+
+## Show users
+select user from mysql.user;
+
+## Show databases
+show databases
