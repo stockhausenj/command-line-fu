@@ -38,5 +38,8 @@ ls -1d /sys/class/scsi_device/*/device/block/*
 ## Compare real, effective and saved id of process.
 ps -eo pid,ruid,euid,suid | grep 1234
 
-## Clear DNS Cache
+## Clear DNS cache.
 sudo systemd-resolve --flush-caches
+
+## Show groups on newlines.
+id | sed 's/,/\n/g'
