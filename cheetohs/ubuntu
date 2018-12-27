@@ -43,3 +43,15 @@ sudo systemd-resolve --flush-caches
 
 ## Show groups on newlines.
 id | sed 's/,/\n/g'
+
+## Find and delete old files or folders.
+find ./pattern* -mtime +10 -type f -delete
+
+## Show FDB (forwarding database) table
+bridge fdb show eth0
+
+## Show ARP (address resolution protocol) entries
+ip neigh show
+
+## List firewall rules by specification
+iptables -S

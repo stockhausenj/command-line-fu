@@ -5,7 +5,7 @@
 ### CLI
 get assets<br/>
 ```bash
-kubectl get <Services|Deployments|Nodes|Pods>
+kubectl get <Services|Deployments|Nodes|Pods|Configmaps>
 ```
 describe assets in more detail<br/>
 ```bash
@@ -28,6 +28,6 @@ kubectl delete services $(kubectl get services --selector=$(kubectl describe dep
 kubectl delete deployment $deployment
 ```
 view Taints<br/>
-```
+```bash
 kubectl get nodes -o json | jq .items[].spec.taints
 ```
