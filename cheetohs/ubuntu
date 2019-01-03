@@ -55,3 +55,6 @@ ip neigh show
 
 ## List firewall rules by specification
 iptables -S
+
+## Compress directory
+tar -zcvf archive-name.tar.gz directory-name

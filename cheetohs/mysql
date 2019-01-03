@@ -9,4 +9,10 @@ show grants for myuser;
 select user from mysql.user;
 
 ## Show databases
-show databases
+show databases;
+
+## Show process list
+show full processlist;
+
+## Show state of innodb storage system
+show engine innodb status \G;
