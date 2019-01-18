@@ -58,3 +58,9 @@ iptables -S
 
 ## Compress directory
 tar -zcvf archive-name.tar.gz directory-name
+
+## Recursive search for largest files
+du -ckx | sort -n
+
+## Remove all empty lines in vim
+g/^\s*$/d

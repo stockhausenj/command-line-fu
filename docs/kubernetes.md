@@ -31,3 +31,7 @@ view Taints<br/>
 ```bash
 kubectl get nodes -o json | jq .items[].spec.taints
 ```
+create busybox pod for troubleshooting<br/>
+```bash
+kubectl run -i --tty --rm debug --image=busybox --restart=Never -- sh
+```
