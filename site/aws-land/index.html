@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Kubernetes - MkLorum</title>
+  <title>AWS - MkLorum</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Kubernetes";
-    var mkdocs_page_input_path = "kubernetes.md";
+    var mkdocs_page_name = "AWS";
+    var mkdocs_page_input_path = "aws-land.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -63,21 +63,9 @@
     <a class="" href="../linux-system-calls/">Linux System Calls</a>
 	    </li>
           
-            <li class="toctree-l1 current">
+            <li class="toctree-l1">
 		
-    <a class="current" href="./">Kubernetes</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l2"><a href="#kubernetes">Kubernetes</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l3" href="#kubectl-v1122">kubectl v1.12.2</a></li>
-        
-        </ul>
-    
-
-    </ul>
+    <a class="" href="../kubernetes/">Kubernetes</a>
 	    </li>
           
         </ul>
@@ -102,7 +90,7 @@
     
       
     
-    <li>Kubernetes</li>
+    <li>AWS</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -112,63 +100,15 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="kubernetes">Kubernetes</h1>
-<h2 id="kubectl-v1122">kubectl v1.12.2</h2>
-<h3 id="general-practices">General Practices</h3>
-<ul>
-<li>use <code>--context=</code> to ensure correct context is targeted</li>
-</ul>
-<h3 id="cli">CLI</h3>
-<p>get assets<br/></p>
-<pre><code class="bash">kubectl get &lt;Services|Deployments|Nodes|Pods|Configmaps&gt;
-</code></pre>
-
-<p>describe assets in more detail<br/></p>
-<pre><code class="bash">kubectl describe &lt;asset&gt; &lt;asset name&gt;
-</code></pre>
-
-<p>get the Pods that a Deployment is running in<br/></p>
-<pre><code class="bash">deployment=&lt;deployment name&gt;
-kubectl get pods --selector=&quot;$(kubectl describe deployments $deployment | grep Selector | awk '{print $2}')&quot; --output=wide
-</code></pre>
-
-<p>curl Service that is exposed through the NodePort type<br/></p>
-<pre><code class="bash">service=&lt;service name&gt;
-curl $(kubectl get nodes | sed -n 2p | awk '{print $1}'):$(kubectl describe service $service | grep NodePort: | awk '{print $3}' | sed 's/\/.*//')
-</code></pre>
-
-<p>delete Service and Deployment<br/></p>
-<pre><code class="bash">deployment=&lt;deployment name&gt;
-kubectl delete services $(kubectl get services --selector=$(kubectl describe deployments $deployment | grep Selector | awk '{print $2}') | sed -n 2p | awk '{print $1}') 
-kubectl delete deployment $deployment
-</code></pre>
-
-<p>view Taints<br/></p>
-<pre><code class="bash">kubectl get nodes -o json | jq .items[].spec.taints
-</code></pre>
-
-<p>create busybox pod for troubleshooting<br/></p>
-<pre><code class="bash">kubectl run -i --tty --rm debug --image=busybox --restart=Never -- sh
-</code></pre>
-
-<p>restart all pods in a deployment/daemonset</p>
-<pre><code class="bash">kubectl get pods -n namespace | grep pod-name | cut -d &quot; &quot; -f1 - | xargs kubectl delete pod -n namespace
-</code></pre>
-
-<p>remove the CRD finalizer blocking</p>
-<pre><code class="bash">kubectl patch crd/crontabs.stable.example.com -p '{&quot;metadata&quot;:{&quot;finalizers&quot;:[]}}' --type=merge
+                <h1 id="aws">AWS</h1>
+<h2 id="ubuntu-1804">Ubuntu 18.04</h2>
+<p>Get EC2 instance metadata</p>
+<pre><code>curl http://169.254.169.254/latest/meta-data/
 </code></pre>
               
             </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-      
-        <a href="../linux-system-calls/" class="btn btn-neutral" title="Linux System Calls"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
@@ -191,8 +131,6 @@ kubectl delete deployment $deployment
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
-      
-        <span><a href="../linux-system-calls/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
     </span>
