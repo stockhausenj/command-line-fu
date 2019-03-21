@@ -35,3 +35,11 @@ create busybox pod for troubleshooting<br/>
 ```bash
 kubectl run -i --tty --rm debug --image=busybox --restart=Never -- sh
 ```
+restart all pods in a deployment/daemonset
+```bash
+kubectl get pods -n namespace | grep pod-name | cut -d " " -f1 - | xargs kubectl delete pod -n namespace
+```
+remove the CRD finalizer blocking
+```bash
+kubectl patch crd/crontabs.stable.example.com -p '{"metadata":{"finalizers":[]}}' --type=merge
+```
