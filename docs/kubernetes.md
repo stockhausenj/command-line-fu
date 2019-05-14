@@ -43,3 +43,26 @@ remove the CRD finalizer blocking
 ```bash
 kubectl patch crd/crontabs.stable.example.com -p '{"metadata":{"finalizers":[]}}' --type=merge
 ```
+
+#### Istio
+verify mesh policy exists
+```bash
+kubectl get policies.authentication.istio.io --all-namespaces
+kubectl get meshpolicies.authentication.istio.io
+```
+get all istio destination rule hosts
+```bash
+kubectl get destinationrules.networking.istio.io --all-namespaces -o yaml | grep "host:"
+```
+change envoy sidecare log level
+```bash
+kubectl -n easybake exec -it -c istio-proxy easybake-ui-6bd7f9bf-9pb5w -- curl -XPOST http://localhost:15000/logging?level=trace
+```
+show given envoy configuration
+```bash
+istioctl proxy-config clusters -n istio-system istio-ingressgateway-65576f8745-kbvgl -o json
+```
+show routing for a port on a pod
+```bash
+istioctl proxy-config listeners easybake-ui-6bd7f9bf-klhvx -n easybake --port 3800 -o json
+```

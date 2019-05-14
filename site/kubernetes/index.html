@@ -158,6 +158,28 @@ kubectl delete deployment $deployment
 <p>remove the CRD finalizer blocking</p>
 <pre><code class="bash">kubectl patch crd/crontabs.stable.example.com -p '{&quot;metadata&quot;:{&quot;finalizers&quot;:[]}}' --type=merge
 </code></pre>
+
+<h4 id="istio">Istio</h4>
+<p>verify mesh policy exists</p>
+<pre><code class="bash">kubectl get policies.authentication.istio.io --all-namespaces
+kubectl get meshpolicies.authentication.istio.io
+</code></pre>
+
+<p>get all istio destination rule hosts</p>
+<pre><code class="bash">kubectl get destinationrules.networking.istio.io --all-namespaces -o yaml | grep &quot;host:&quot;
+</code></pre>
+
+<p>change envoy sidecare log level</p>
+<pre><code class="bash">kubectl -n easybake exec -it -c istio-proxy easybake-ui-6bd7f9bf-9pb5w -- curl -XPOST http://localhost:15000/logging?level=trace
+</code></pre>
+
+<p>show given envoy configuration</p>
+<pre><code class="bash">istioctl proxy-config clusters -n istio-system istio-ingressgateway-65576f8745-kbvgl -o json
+</code></pre>
+
+<p>show routing for a port on a pod</p>
+<pre><code class="bash">istioctl proxy-config listeners easybake-ui-6bd7f9bf-klhvx -n easybake --port 3800 -o json
+</code></pre>
               
             </div>
           </div>
