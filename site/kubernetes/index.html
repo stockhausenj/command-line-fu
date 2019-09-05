@@ -119,58 +119,62 @@
 <li>use <code>--context=</code> to ensure correct context is targeted</li>
 </ul>
 <h3 id="cli">CLI</h3>
+<p>setup env<br/></p>
+<pre><code class="bash">sudo ln -s $(which kubectl) /usr/bin/k
+</code></pre>
+
 <p>get assets<br/></p>
-<pre><code class="bash">kubectl get &lt;Services|Deployments|Nodes|Pods|Configmaps&gt;
+<pre><code class="bash">k get &lt;Services|Deployments|Nodes|Pods|Configmaps&gt;
 </code></pre>
 
 <p>describe assets in more detail<br/></p>
-<pre><code class="bash">kubectl describe &lt;asset&gt; &lt;asset name&gt;
+<pre><code class="bash">k describe &lt;asset&gt; &lt;asset name&gt;
 </code></pre>
 
 <p>get the Pods that a Deployment is running in<br/></p>
 <pre><code class="bash">deployment=&lt;deployment name&gt;
-kubectl get pods --selector=&quot;$(kubectl describe deployments $deployment | grep Selector | awk '{print $2}')&quot; --output=wide
+k get pods --selector=&quot;$(k describe deployments $deployment | grep Selector | awk '{print $2}')&quot; --output=wide
 </code></pre>
 
 <p>curl Service that is exposed through the NodePort type<br/></p>
 <pre><code class="bash">service=&lt;service name&gt;
-curl $(kubectl get nodes | sed -n 2p | awk '{print $1}'):$(kubectl describe service $service | grep NodePort: | awk '{print $3}' | sed 's/\/.*//')
+curl $(k get nodes | sed -n 2p | awk '{print $1}'):$(k describe service $service | grep NodePort: | awk '{print $3}' | sed 's/\/.*//')
 </code></pre>
 
 <p>delete Service and Deployment<br/></p>
 <pre><code class="bash">deployment=&lt;deployment name&gt;
-kubectl delete services $(kubectl get services --selector=$(kubectl describe deployments $deployment | grep Selector | awk '{print $2}') | sed -n 2p | awk '{print $1}') 
-kubectl delete deployment $deployment
+k delete services $(k get services --selector=$(k describe deployments $deployment | grep Selector | awk '{print $2}') | sed -n 2p | awk '{print $1}') 
+k delete deployment $deployment
 </code></pre>
 
 <p>view Taints<br/></p>
-<pre><code class="bash">kubectl get nodes -o json | jq .items[].spec.taints
+<pre><code class="bash">k get nodes -o json | jq .items[].spec.taints
 </code></pre>
 
 <p>create busybox pod for troubleshooting<br/></p>
-<pre><code class="bash">kubectl run -i --tty --rm debug --image=busybox --restart=Never -- sh
+<pre><code class="bash">k run -i --tty --rm debug --image=busybox --restart=Never -- sh
 </code></pre>
 
 <p>restart all pods in a deployment/daemonset</p>
-<pre><code class="bash">kubectl get pods -n namespace | grep pod-name | cut -d &quot; &quot; -f1 - | xargs kubectl delete pod -n namespace
+<pre><code class="bash">k get pods -n namespace | grep pod-name | cut -d &quot; &quot; -f1 - | xargs k delete pod -n namespace
 </code></pre>
 
 <p>remove the CRD finalizer blocking</p>
-<pre><code class="bash">kubectl patch crd/crontabs.stable.example.com -p '{&quot;metadata&quot;:{&quot;finalizers&quot;:[]}}' --type=merge
+<pre><code class="bash">k patch crd/crontabs.stable.example.com -p '{&quot;metadata&quot;:{&quot;finalizers&quot;:[]}}' --type=merge
 </code></pre>
 
 <h4 id="istio">Istio</h4>
 <p>verify mesh policy exists</p>
-<pre><code class="bash">kubectl get policies.authentication.istio.io --all-namespaces
-kubectl get meshpolicies.authentication.istio.io
+<pre><code class="bash">k get policies.authentication.istio.io --all-namespaces
+k get meshpolicies.authentication.istio.io
 </code></pre>
 
 <p>get all istio destination rule hosts</p>
-<pre><code class="bash">kubectl get destinationrules.networking.istio.io --all-namespaces -o yaml | grep &quot;host:&quot;
+<pre><code class="bash">k get destinationrules.networking.istio.io --all-namespaces -o yaml | grep &quot;host:&quot;
 </code></pre>
 
 <p>change envoy sidecare log level</p>
-<pre><code class="bash">kubectl -n easybake exec -it -c istio-proxy easybake-ui-6bd7f9bf-9pb5w -- curl -XPOST http://localhost:15000/logging?level=trace
+<pre><code class="bash">k -n easybake exec -it -c istio-proxy easybake-ui-6bd7f9bf-9pb5w -- curl -XPOST http://localhost:15000/logging?level=trace
 </code></pre>
 
 <p>show given envoy configuration</p>
