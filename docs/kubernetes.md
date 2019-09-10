@@ -7,33 +7,35 @@ setup env<br/>
 ```bash
 sudo ln -s $(which kubectl) /usr/bin/k
 ```
-get assets<br/>
+resource short-names<br/>
 ```bash
-k get <Services|Deployments|Nodes|Pods|Configmaps>
+svc    = service
+ds     = daemonset
+po     = pod
+deploy = deployment
+vs     = virtualservice
+gw     = gateway
+ksvc   = knative service
 ```
-describe assets in more detail<br/>
+get resource YAML<br/>
 ```bash
-k describe <asset> <asset name>
+k get <resource-type> <resoruce-id> -n <namespace> -o yaml
 ```
-get the Pods that a Deployment is running in<br/>
+get the pods from a Deployment<br/>
 ```bash
 deployment=<deployment name>
-k get pods --selector="$(k describe deployments $deployment | grep Selector | awk '{print $2}')" --output=wide
-```
-curl Service that is exposed through the NodePort type<br/>
-```bash
-service=<service name>
-curl $(k get nodes | sed -n 2p | awk '{print $1}'):$(k describe service $service | grep NodePort: | awk '{print $3}' | sed 's/\/.*//')
+k get pod --selector="$(k describe deployments $deployment | grep Selector | awk '{print $2}')" --output=wide
 ```
 delete Service and Deployment<br/>
 ```bash
-deployment=<deployment name>
-k delete services $(k get services --selector=$(k describe deployments $deployment | grep Selector | awk '{print $2}') | sed -n 2p | awk '{print $1}') 
-k delete deployment $deployment
+deployment=<deployment-id>
+namespace=<namespace>
+k delete services $(k get svc --selector=$(k describe deployments $deployment -n $namespace | grep Selector | awk '{print $2}') | sed -n 2p | awk '{print $1}') 
+k delete deploy $deployment -n $namespace
 ```
-view Taints<br/>
+view all node taints<br/>
 ```bash
-k get nodes -o json | jq .items[].spec.taints
+k get nodes -o json | jq '.items[] | .metadata.name, .spec.taints'
 ```
 create busybox pod for troubleshooting<br/>
 ```bash

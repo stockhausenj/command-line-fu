@@ -123,32 +123,34 @@
 <pre><code class="bash">sudo ln -s $(which kubectl) /usr/bin/k
 </code></pre>
 
-<p>get assets<br/></p>
-<pre><code class="bash">k get &lt;Services|Deployments|Nodes|Pods|Configmaps&gt;
+<p>resource short-names<br/></p>
+<pre><code class="bash">svc    = service
+ds     = daemonset
+po     = pod
+deploy = deployment
+vs     = virtualservice
+gw     = gateway
+ksvc   = knative service
 </code></pre>
 
-<p>describe assets in more detail<br/></p>
-<pre><code class="bash">k describe &lt;asset&gt; &lt;asset name&gt;
+<p>get resource YAML<br/></p>
+<pre><code class="bash">k get &lt;resource-type&gt; &lt;resoruce-id&gt; -n &lt;namespace&gt; -o yaml
 </code></pre>
 
-<p>get the Pods that a Deployment is running in<br/></p>
+<p>get the pods from a Deployment<br/></p>
 <pre><code class="bash">deployment=&lt;deployment name&gt;
-k get pods --selector=&quot;$(k describe deployments $deployment | grep Selector | awk '{print $2}')&quot; --output=wide
-</code></pre>
-
-<p>curl Service that is exposed through the NodePort type<br/></p>
-<pre><code class="bash">service=&lt;service name&gt;
-curl $(k get nodes | sed -n 2p | awk '{print $1}'):$(k describe service $service | grep NodePort: | awk '{print $3}' | sed 's/\/.*//')
+k get pod --selector=&quot;$(k describe deployments $deployment | grep Selector | awk '{print $2}')&quot; --output=wide
 </code></pre>
 
 <p>delete Service and Deployment<br/></p>
-<pre><code class="bash">deployment=&lt;deployment name&gt;
-k delete services $(k get services --selector=$(k describe deployments $deployment | grep Selector | awk '{print $2}') | sed -n 2p | awk '{print $1}') 
-k delete deployment $deployment
+<pre><code class="bash">deployment=&lt;deployment-id&gt;
+namespace=&lt;namespace&gt;
+k delete services $(k get svc --selector=$(k describe deployments $deployment -n $namespace | grep Selector | awk '{print $2}') | sed -n 2p | awk '{print $1}') 
+k delete deploy $deployment -n $namespace
 </code></pre>
 
-<p>view Taints<br/></p>
-<pre><code class="bash">k get nodes -o json | jq .items[].spec.taints
+<p>view all node taints<br/></p>
+<pre><code class="bash">k get nodes -o json | jq '.items[] | .metadata.name, .spec.taints'
 </code></pre>
 
 <p>create busybox pod for troubleshooting<br/></p>
