@@ -72,3 +72,27 @@ show routing for a port on a pod
 ```bash
 istioctl proxy-config listeners easybake-ui-6bd7f9bf-klhvx -n easybake --port 3800 -o json
 ```
+
+#### General Networking
+Flush iptables on a host
+```
+systemctl stop docker.service
+iptables -F -t nat
+iptables -X -t nat
+iptables -F -t mangle
+iptables -X -t mangle
+iptables -F
+iptables -X
+systemctl start docker.service
+```
+
+#### Weave
+<a href="https://github.com/weaveworks/weave/releases">Download</a> the weave executable and place on k8s host. Make sure the version matches what is running in the cluster.</br>
+Connection status between all hosts on the weave overlay network. If run on a healthy node the unhealthy node wont show up in the output. If run on an unhealthy node you will get no results
+```
+./weave status peers
+```
+Connection from the host you are on to the other hosts in the k8s cluster on the weave overlay network. If run on a healthy node you will see connections that could not be established in the output if there is an unhealthy node. If run on an unhealthy node you will see all the connections fail.
+```
+./weave status connections
+```

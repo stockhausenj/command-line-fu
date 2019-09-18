@@ -186,6 +186,28 @@ k get meshpolicies.authentication.istio.io
 <p>show routing for a port on a pod</p>
 <pre><code class="bash">istioctl proxy-config listeners easybake-ui-6bd7f9bf-klhvx -n easybake --port 3800 -o json
 </code></pre>
+
+<h4 id="general-networking">General Networking</h4>
+<p>Flush iptables on a host</p>
+<pre><code>systemctl stop docker.service
+iptables -F -t nat
+iptables -X -t nat
+iptables -F -t mangle
+iptables -X -t mangle
+iptables -F
+iptables -X
+systemctl start docker.service
+</code></pre>
+
+<h4 id="weave">Weave</h4>
+<p><a href="https://github.com/weaveworks/weave/releases">Download</a> the weave executable and place on k8s host. Make sure the version matches what is running in the cluster.</br>
+Connection status between all hosts on the weave overlay network. If run on a healthy node the unhealthy node wont show up in the output. If run on an unhealthy node you will get no results</p>
+<pre><code>./weave status peers
+</code></pre>
+
+<p>Connection from the host you are on to the other hosts in the k8s cluster on the weave overlay network. If run on a healthy node you will see connections that could not be established in the output if there is an unhealthy node. If run on an unhealthy node you will see all the connections fail.</p>
+<pre><code>./weave status connections
+</code></pre>
               
             </div>
           </div>
