@@ -16,6 +16,7 @@ deploy = deployment
 vs     = virtualservice
 gw     = gateway
 ksvc   = knative service
+quota  = resourcequota
 ```
 get resource YAML<br/>
 ```bash
@@ -49,8 +50,13 @@ remove the CRD finalizer blocking
 ```bash
 k patch crd/crontabs.stable.example.com -p '{"metadata":{"finalizers":[]}}' --type=merge
 ```
+#### Reports
+see current resource usage vs limits per namespace
+```
+k get quota -A -o custom-columns=NAMESPACE:metadata.namespace,CPU_LIMIT:{'.status.hard.limits\.cpu'},CPU_USED:{'.status.used.limits\.cpu'},MEM_LIMIT:{'.status.hard.limits\.memory'},MEM_USED:{'.status.used.limits\.memory'}
+```
 
-#### Istio
+## Istio
 verify mesh policy exists
 ```bash
 k get policies.authentication.istio.io --all-namespaces
@@ -73,7 +79,7 @@ show routing for a port on a pod
 istioctl proxy-config listeners easybake-ui-6bd7f9bf-klhvx -n easybake --port 3800 -o json
 ```
 
-#### General Networking
+## General Networking
 Flush iptables on a host
 ```
 systemctl stop docker.service
@@ -86,7 +92,7 @@ iptables -X
 systemctl start docker.service
 ```
 
-#### Weave
+## Weave
 <a href="https://github.com/weaveworks/weave/releases">Download</a> the weave executable and place on k8s host. Make sure the version matches what is running in the cluster.</br>
 Connection status between all hosts on the weave overlay network. If run on a healthy node the unhealthy node wont show up in the output. If run on an unhealthy node you will get no results
 ```
