@@ -74,6 +74,12 @@
         
             <li><a class="toctree-l3" href="#kubectl-v1122">kubectl v1.12.2</a></li>
         
+            <li><a class="toctree-l3" href="#istio">Istio</a></li>
+        
+            <li><a class="toctree-l3" href="#general-networking">General Networking</a></li>
+        
+            <li><a class="toctree-l3" href="#weave">Weave</a></li>
+        
         </ul>
     
 
@@ -131,6 +137,7 @@ deploy = deployment
 vs     = virtualservice
 gw     = gateway
 ksvc   = knative service
+quota  = resourcequota
 </code></pre>
 
 <p>get resource YAML<br/></p>
@@ -165,7 +172,12 @@ k delete deploy $deployment -n $namespace
 <pre><code class="bash">k patch crd/crontabs.stable.example.com -p '{&quot;metadata&quot;:{&quot;finalizers&quot;:[]}}' --type=merge
 </code></pre>
 
-<h4 id="istio">Istio</h4>
+<h4 id="reports">Reports</h4>
+<p>see current resource usage vs limits per namespace</p>
+<pre><code>k get quota -A -o custom-columns=NAMESPACE:metadata.namespace,CPU_LIMIT:{'.status.hard.limits\.cpu'},CPU_USED:{'.status.used.limits\.cpu'},MEM_LIMIT:{'.status.hard.limits\.memory'},MEM_USED:{'.status.used.limits\.memory'}
+</code></pre>
+
+<h2 id="istio">Istio</h2>
 <p>verify mesh policy exists</p>
 <pre><code class="bash">k get policies.authentication.istio.io --all-namespaces
 k get meshpolicies.authentication.istio.io
@@ -187,7 +199,7 @@ k get meshpolicies.authentication.istio.io
 <pre><code class="bash">istioctl proxy-config listeners easybake-ui-6bd7f9bf-klhvx -n easybake --port 3800 -o json
 </code></pre>
 
-<h4 id="general-networking">General Networking</h4>
+<h2 id="general-networking">General Networking</h2>
 <p>Flush iptables on a host</p>
 <pre><code>systemctl stop docker.service
 iptables -F -t nat
@@ -199,7 +211,7 @@ iptables -X
 systemctl start docker.service
 </code></pre>
 
-<h4 id="weave">Weave</h4>
+<h2 id="weave">Weave</h2>
 <p><a href="https://github.com/weaveworks/weave/releases">Download</a> the weave executable and place on k8s host. Make sure the version matches what is running in the cluster.</br>
 Connection status between all hosts on the weave overlay network. If run on a healthy node the unhealthy node wont show up in the output. If run on an unhealthy node you will get no results</p>
 <pre><code>./weave status peers
