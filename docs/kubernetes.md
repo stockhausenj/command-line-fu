@@ -52,7 +52,7 @@ k patch crd/crontabs.stable.example.com -p '{"metadata":{"finalizers":[]}}' --ty
 ```
 #### Reports
 see current resource usage vs limits per namespace
-```
+```bash
 k get quota -A -o custom-columns=NAMESPACE:metadata.namespace,CPU_LIMIT:{'.status.hard.limits\.cpu'},CPU_USED:{'.status.used.limits\.cpu'},MEM_LIMIT:{'.status.hard.limits\.memory'},MEM_USED:{'.status.used.limits\.memory'}
 ```
 
