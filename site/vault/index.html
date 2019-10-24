@@ -7,16 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="shortcut icon" href="/img/favicon.ico">
-  <title>MkLorum</title>
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>HashiCorp Vault - MkLorum</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="/css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
-  <script src="/js/jquery-2.1.1.min.js" defer></script>
-  <script src="/js/modernizr-2.8.3.min.js" defer></script>
+  <script>
+    // Current page data
+    var mkdocs_page_name = "HashiCorp Vault";
+    var mkdocs_page_input_path = "vault.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
@@ -29,9 +36,9 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href="/." class="icon icon-home"> MkLorum</a>
+        <a href=".." class="icon icon-home"> MkLorum</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="//search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
@@ -43,32 +50,44 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="/.">Home</a>
+    <a class="" href="..">Home</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="/cgroups/">cgroups</a>
+    <a class="" href="../cgroups/">cgroups</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="/linux-system-calls/">Linux System Calls</a>
+    <a class="" href="../linux-system-calls/">Linux System Calls</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="/kubernetes/">Kubernetes</a>
+    <a class="" href="../kubernetes/">Kubernetes</a>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="/aws-land/">AWS</a>
+    <a class="" href="../aws-land/">AWS</a>
 	    </li>
           
-            <li class="toctree-l1">
+            <li class="toctree-l1 current">
 		
-    <a class="" href="/vault/">HashiCorp Vault</a>
+    <a class="current" href="./">HashiCorp Vault</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#vault">Vault</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#decrypt-a-single-secret">Decrypt a single secret</a></li>
+        
+        </ul>
+    
+
+    </ul>
 	    </li>
           
         </ul>
@@ -81,7 +100,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="/.">MkLorum</a>
+        <a href="..">MkLorum</a>
       </nav>
 
       
@@ -89,9 +108,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="/.">Docs</a> &raquo;</li>
+    <li><a href="..">Docs</a> &raquo;</li>
     
+      
     
+    <li>HashiCorp Vault</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -101,15 +122,26 @@
           <div role="main">
             <div class="section">
               
-
-  <h1 id="404-page-not-found">404</h1>
-
-  <p><strong>Page not found</strong></p>
-
-
+                <h1 id="vault">Vault</h1>
+<h2 id="decrypt-a-single-secret">Decrypt a single secret</h2>
+<pre><code>echo '$ANSIBLE_VAULT;1.1;AES256
+62303333633932333833363837376365366465636466373433326630663634376461666135633039
+6266383335653333616263316230326164353632383161310a306437653362383436643565336663
+62643037376439306431343935656132643964343766653465373933363262376565353561326231
+3432343937313639630a343131303535633737313563623337636163383739393933373663396665
+62323734353634356462326237373931623735663739323064393133386366333230' | ansible-vault decrypt /dev/stdin --output=/dev/stderr &gt; /dev/null
+</code></pre>
+              
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../aws-land/" class="btn btn-neutral" title="AWS"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -133,12 +165,14 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
+        <span><a href="../aws-land/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
       
     </span>
 </div>
-    <script>var base_url = '/';</script>
-    <script src="/js/theme.js" defer></script>
-      <script src="/search/main.js" defer></script>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
 
 </body>
 </html>
