@@ -4,4 +4,6 @@ nav:
     - cgroups: cgroups.md
     - Linux System Calls: linux-system-calls.md
     - Kubernetes: kubernetes.md
+    - AWS: aws-land.md
+    - HashiCorp Vault: vault.md
 theme: readthedocs
