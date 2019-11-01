@@ -50,3 +50,6 @@
 <a href="https://www.rationallyparanoid.com/articles/tcpdump.html">commands</a>
 ### See what process is listening on a port.
 `netstat -tlnp`
+## Processes
+### View CPU and memory usage of single process
+`ps -p <pid> -o %cpu,%mem,cmd`
