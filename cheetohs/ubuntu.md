@@ -33,10 +33,11 @@
 `find ./pattern* -mtime +10 -type f -delete`
 ### Compress directory
 `tar -zcvf archive-name.tar.gz directory-name`
-### Remove all empty lines in vim
-`g/^\s*$/d`
 ### Recursive search for largest files
 `du -ckx | sort -n`
+## Vim
+### Remove all empty lines
+`g/^\s*$/d`
 ## Networking
 ### Clear DNS cache.
 `sudo systemd-resolve --flush-caches`
@@ -50,6 +51,19 @@
 <a href="https://www.rationallyparanoid.com/articles/tcpdump.html">commands</a>
 ### See what process is listening on a port.
 `netstat -tlnp`
+### Query specific DNS server
+`dig gitlab.blueorigin.com +noall +answer`
+### Port scan
+`netcat -z -v domain.com 1-1000`
+### Test TCP connection
+`netcat domain.com 80`
+### Test UDP connection
+`netcat -u domain.com 53`
+### Client/Server netcat comm
+```
+server> netcat -l 4444
+client> netcat domain.com 4444
+````
 ## Processes
 ### View CPU and memory usage of single process
 `ps -p <pid> -o %cpu,%mem,cmd`
