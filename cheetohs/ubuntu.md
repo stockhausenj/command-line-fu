@@ -92,7 +92,7 @@ ssh person@yourserver.com 'chcon -t ssh_home_t ~/.ssh/authorized_keys'
 
 **Helpful tcpdump commands.**
 
-<a href="https://www.rationallyparanoid.com/articles/tcpdump.html">commands</a>
+<a href="https://hackertarget.com/tcpdump-examples/">commands</a>
 
 **See what process is listening on a port.**
 
