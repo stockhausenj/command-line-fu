@@ -182,6 +182,10 @@ k delete deploy $deployment -n $namespace
 <pre><code class="bash">k patch crd/crontabs.stable.example.com -p '{&quot;metadata&quot;:{&quot;finalizers&quot;:[]}}' --type=merge
 </code></pre>
 
+<p>print resource usage in namespace</p>
+<pre><code class="bash">k -n mynamespace describe resourcequotas
+</code></pre>
+
 <h4 id="reports">Reports</h4>
 <p>see current resource usage vs limits per namespace</p>
 <pre><code class="bash">k get quota -A -o custom-columns=NAMESPACE:metadata.namespace,CPU_LIMIT:{'.status.hard.limits\.cpu'},CPU_USED:{'.status.used.limits\.cpu'},MEM_LIMIT:{'.status.hard.limits\.memory'},MEM_USED:{'.status.used.limits\.memory'}
