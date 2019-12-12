@@ -186,6 +186,10 @@ k delete deploy $deployment -n $namespace
 <pre><code class="bash">k -n mynamespace describe resourcequotas
 </code></pre>
 
+<p>seeing the latest jobs from a cronjob is as  simple as listing all jobs in the namespace</p>
+<pre><code class="bash">k -n mynamespace get jobs
+</code></pre>
+
 <h4 id="reports">Reports</h4>
 <p>see current resource usage vs limits per namespace</p>
 <pre><code class="bash">k get quota -A -o custom-columns=NAMESPACE:metadata.namespace,CPU_LIMIT:{'.status.hard.limits\.cpu'},CPU_USED:{'.status.used.limits\.cpu'},MEM_LIMIT:{'.status.hard.limits\.memory'},MEM_USED:{'.status.used.limits\.memory'}
