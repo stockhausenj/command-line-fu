@@ -54,6 +54,10 @@ print resource usage in namespace
 ```bash
 k -n mynamespace describe resourcequotas
 ```
+seeing the latest jobs from a cronjob is as  simple as listing all jobs in the namespace
+```bash
+k -n mynamespace get jobs
+```
 #### Reports
 see current resource usage vs limits per namespace
 ```bash
