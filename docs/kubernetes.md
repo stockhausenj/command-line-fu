@@ -50,6 +50,10 @@ remove the CRD finalizer blocking
 ```bash
 k patch crd/crontabs.stable.example.com -p '{"metadata":{"finalizers":[]}}' --type=merge
 ```
+print resource usage in namespace
+```bash
+k -n mynamespace describe resourcequotas
+```
 #### Reports
 see current resource usage vs limits per namespace
 ```bash
