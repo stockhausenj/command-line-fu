@@ -133,6 +133,7 @@
 <h3 id="general-practices">General Practices</h3>
 <ul>
 <li>use <code>--context=</code> to ensure correct context is targeted</li>
+<li>pass context and namespace to kubectl first because it is easier to edit the resource parameters at end of call</li>
 </ul>
 <h3 id="cli">CLI</h3>
 <p>setup env<br/></p>
@@ -151,7 +152,7 @@ quota  = resourcequota
 </code></pre>
 
 <p>get resource YAML<br/></p>
-<pre><code class="bash">k get &lt;resource-type&gt; &lt;resoruce-id&gt; -n &lt;namespace&gt; -o yaml
+<pre><code class="bash">k -n &lt;namespace&gt; get &lt;resource-type&gt; &lt;resoruce-id&gt; -o yaml
 </code></pre>
 
 <p>get the pods from a Deployment<br/></p>
