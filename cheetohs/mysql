@@ -16,3 +16,6 @@ show full processlist;
 
 ## Show state of innodb storage system
 show engine innodb status \G;
+
+## Checking replication status on secondary
+show slave status\G;
