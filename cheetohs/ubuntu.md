@@ -125,3 +125,7 @@ client> netcat domain.com 4444
 **View CPU and memory usage of single process.**
 
 `ps -p <pid> -o %cpu,%mem,cmd`
+# Ubuntu 19.10
+## Misc
+**Detect sound devices.**
+`pulseaudio -k && sudo alsa force-reload`
