@@ -21,7 +21,7 @@
 
 **Deploy SSH key.**
 
-```
+```bash
 ssh-copy-id -i ~/.ssh/some_key.pub person@yourserver.com
 ssh person@yourserver.com 'chcon -t ssh_home_t ~/.ssh/authorized_keys'
 ```
@@ -67,6 +67,9 @@ ssh person@yourserver.com 'chcon -t ssh_home_t ~/.ssh/authorized_keys'
 **Recursive search for largest files.**
 
 `du -ckx | sort -n`
+
+**Check where a package will be installed from.**
+`apt-cache policy _package_`
 
 ## Vim
 **Remove all empty lines.**
@@ -114,12 +117,12 @@ ssh person@yourserver.com 'chcon -t ssh_home_t ~/.ssh/authorized_keys'
 
 `netcat -u domain.com 53`
 
-**Client/Server netcat comm**
+**Client/Server netcat comm.**
 
-```
+```bash
 server> netcat -l 4444
 client> netcat domain.com 4444
-````
+```
 
 ## Processes
 **View CPU and memory usage of single process.**
