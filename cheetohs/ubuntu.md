@@ -124,6 +124,10 @@ server> netcat -l 4444
 client> netcat domain.com 4444
 ```
 
+**Counts on your connections in your linux environment.**
+
+`netstat -ant | awk '{print $6}' | sort | uniq -c | sort -n`
+
 ## Processes
 **View CPU and memory usage of single process.**
 
