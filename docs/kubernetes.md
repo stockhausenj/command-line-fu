@@ -86,6 +86,10 @@ show routing for a port on a pod
 ```bash
 istioctl proxy-config listeners easybake-ui-6bd7f9bf-klhvx -n easybake --port 3800 -o json
 ```
+get configured proxy routes. useful for when traffic is not making it to destination
+```bash
+istioctl proxy-config route -n istio-system istio-ingressgateway-65576f8745-kbvgl -o json
+```
 
 ## General Networking
 Flush iptables on a host
