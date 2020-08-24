@@ -75,6 +75,10 @@
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#istio">Istio</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#traffic-management">Traffic Management</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#general-networking">General Networking</a>
     </li>
@@ -191,31 +195,37 @@ k delete deploy $deployment -n $namespace
 </code></pre>
 
 <h2 id="istio">Istio</h2>
-<p>verify mesh policy exists</p>
+<p>Verify mesh policy exists.</p>
 <pre><code class="bash">k get policies.authentication.istio.io --all-namespaces
 k get meshpolicies.authentication.istio.io
 </code></pre>
 
-<p>get all istio destination rule hosts</p>
+<p>Get all istio destination rule hosts.</p>
 <pre><code class="bash">k get destinationrules.networking.istio.io --all-namespaces -o yaml | grep &quot;host:&quot;
 </code></pre>
 
-<p>change envoy sidecare log level</p>
+<p>Change envoy sidecare log level.</p>
 <pre><code class="bash">k -n easybake exec -it -c istio-proxy easybake-ui-6bd7f9bf-9pb5w -- curl -XPOST http://localhost:15000/logging?level=trace
 </code></pre>
 
-<p>show given envoy configuration</p>
+<p>Show given envoy configuration.</p>
 <pre><code class="bash">istioctl proxy-config clusters -n istio-system istio-ingressgateway-65576f8745-kbvgl -o json
 </code></pre>
 
-<p>show routing for a port on a pod</p>
+<p>Show routing for a port on a pod.</p>
 <pre><code class="bash">istioctl proxy-config listeners easybake-ui-6bd7f9bf-klhvx -n easybake --port 3800 -o json
 </code></pre>
 
-<p>get configured proxy routes. useful for when traffic is not making it to destination</p>
+<p>Get configured proxy routes. useful for when traffic is not making it to destination.</p>
 <pre><code class="bash">istioctl proxy-config route -n istio-system istio-ingressgateway-65576f8745-kbvgl -o json
 </code></pre>
 
+<h3 id="traffic-management">Traffic Management</h3>
+<ul>
+<li>Enabled locality-load balancing if it's not enabled by default.</li>
+<li>Use outlier detection (OD) configurations in your destination rules to circuit break unhealthy nodes.</li>
+<li>Use locality-prioritized load balancing to decrease latency and egress costs. This mode tells envoy to send requests to pods on nodes that match the locality labels on the sender node. This mode does not work without OD configurations.</li>
+</ul>
 <h2 id="general-networking">General Networking</h2>
 <p>Flush iptables on a host</p>
 <pre><code>systemctl stop docker.service
