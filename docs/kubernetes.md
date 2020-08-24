@@ -65,31 +65,36 @@ k get quota -A -o custom-columns=NAMESPACE:metadata.namespace,CPU_LIMIT:{'.statu
 ```
 
 ## Istio
-verify mesh policy exists
+Verify mesh policy exists.
 ```bash
 k get policies.authentication.istio.io --all-namespaces
 k get meshpolicies.authentication.istio.io
 ```
-get all istio destination rule hosts
+Get all istio destination rule hosts.
 ```bash
 k get destinationrules.networking.istio.io --all-namespaces -o yaml | grep "host:"
 ```
-change envoy sidecare log level
+Change envoy sidecare log level.
 ```bash
 k -n easybake exec -it -c istio-proxy easybake-ui-6bd7f9bf-9pb5w -- curl -XPOST http://localhost:15000/logging?level=trace
 ```
-show given envoy configuration
+Show given envoy configuration.
 ```bash
 istioctl proxy-config clusters -n istio-system istio-ingressgateway-65576f8745-kbvgl -o json
 ```
-show routing for a port on a pod
+Show routing for a port on a pod.
 ```bash
 istioctl proxy-config listeners easybake-ui-6bd7f9bf-klhvx -n easybake --port 3800 -o json
 ```
-get configured proxy routes. useful for when traffic is not making it to destination
+Get configured proxy routes. useful for when traffic is not making it to destination.
 ```bash
 istioctl proxy-config route -n istio-system istio-ingressgateway-65576f8745-kbvgl -o json
 ```
+### Traffic Management
+* Enabled locality-load balancing if it's not enabled by default.
+* Use outlier detection (OD) configurations in your destination rules to circuit break unhealthy nodes.
+* Use locality-prioritized load balancing to decrease latency and egress costs. This mode tells envoy to send requests to pods on nodes that match the locality labels on the sender node. This mode does not work without OD configurations.
+
 
 ## General Networking
 Flush iptables on a host
