@@ -139,6 +139,11 @@ List all mounted filesystems with mount options.
 
 `findmnt`
 
+## NTP
+View status.
+
+`timedatectl status`
+
 # Ubuntu 19.10
 ## Misc
 Detect sound devices.
