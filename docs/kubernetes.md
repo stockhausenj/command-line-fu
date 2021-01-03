@@ -119,3 +119,17 @@ Connection from the host you are on to the other hosts in the k8s cluster on the
 ```
 ./weave status connections
 ```
+
+## Etcd
+The env variable `$ETCDCTL_ENDPOINTS` is set by default to the local listening address.
+
+For checking status and health interactively it's best to use the flag `--write-out` with the value `"fields"`, while it's easier to parse programmatically when the value is `"json"`. For the below I'll assume it's all interactive.
+
+Check health.
+```
+etcdctl endpoint health --write-out="fields"
+```
+Check status.
+```
+etcdctl endpoint status --write-out="fields"
+```
