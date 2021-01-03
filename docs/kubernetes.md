@@ -1,5 +1,5 @@
 # Kubernetes
-## kubectl v1.12.2
+## kubectl
 ### General Practices 
 * use `--context=` to ensure correct context is targeted
 ### CLI

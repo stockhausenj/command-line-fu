@@ -84,6 +84,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#weave">Weave</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#etcd">Etcd</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -135,11 +137,10 @@
 </ul>
 <h3 id="cli">CLI</h3>
 <p>setup env<br/></p>
-<pre><code class="bash">sudo ln -s $(which kubectl) /usr/bin/k
+<pre><code class="language-bash">sudo ln -s $(which kubectl) /usr/bin/k
 </code></pre>
-
 <p>resource short-names<br/></p>
-<pre><code class="bash">svc    = service
+<pre><code class="language-bash">svc    = service
 ds     = daemonset
 po     = pod
 deploy = deployment
@@ -148,78 +149,61 @@ gw     = gateway
 ksvc   = knative service
 quota  = resourcequota
 </code></pre>
-
 <p>get resource YAML<br/></p>
-<pre><code class="bash">k get &lt;resource-type&gt; &lt;resoruce-id&gt; -n &lt;namespace&gt; -o yaml
+<pre><code class="language-bash">k get &lt;resource-type&gt; &lt;resoruce-id&gt; -n &lt;namespace&gt; -o yaml
 </code></pre>
-
 <p>get the pods from a Deployment<br/></p>
-<pre><code class="bash">deployment=&lt;deployment name&gt;
+<pre><code class="language-bash">deployment=&lt;deployment name&gt;
 k get pod --selector=&quot;$(k describe deployments $deployment | grep Selector | awk '{print $2}')&quot; --output=wide
 </code></pre>
-
 <p>delete Service and Deployment<br/></p>
-<pre><code class="bash">deployment=&lt;deployment-id&gt;
+<pre><code class="language-bash">deployment=&lt;deployment-id&gt;
 namespace=&lt;namespace&gt;
 k delete services $(k get svc --selector=$(k describe deployments $deployment -n $namespace | grep Selector | awk '{print $2}') | sed -n 2p | awk '{print $1}') 
 k delete deploy $deployment -n $namespace
 </code></pre>
-
 <p>view all node taints<br/></p>
-<pre><code class="bash">k get nodes -o json | jq '.items[] | .metadata.name, .spec.taints'
+<pre><code class="language-bash">k get nodes -o json | jq '.items[] | .metadata.name, .spec.taints'
 </code></pre>
-
 <p>create busybox pod for troubleshooting<br/></p>
-<pre><code class="bash">k run -i --tty --rm debug --image=busybox --restart=Never -- sh
+<pre><code class="language-bash">k run -i --tty --rm debug --image=busybox --restart=Never -- sh
 </code></pre>
-
 <p>restart all pods in a deployment/daemonset</p>
-<pre><code class="bash">k get pods -n namespace | grep pod-name | cut -d &quot; &quot; -f1 - | xargs k delete pod -n namespace
+<pre><code class="language-bash">k get pods -n namespace | grep pod-name | cut -d &quot; &quot; -f1 - | xargs k delete pod -n namespace
 </code></pre>
-
 <p>remove the CRD finalizer blocking</p>
-<pre><code class="bash">k patch crd/crontabs.stable.example.com -p '{&quot;metadata&quot;:{&quot;finalizers&quot;:[]}}' --type=merge
+<pre><code class="language-bash">k patch crd/crontabs.stable.example.com -p '{&quot;metadata&quot;:{&quot;finalizers&quot;:[]}}' --type=merge
 </code></pre>
-
 <p>print resource usage in namespace</p>
-<pre><code class="bash">k -n mynamespace describe resourcequotas
+<pre><code class="language-bash">k -n mynamespace describe resourcequotas
 </code></pre>
-
 <p>seeing the latest jobs from a cronjob is as  simple as listing all jobs in the namespace</p>
-<pre><code class="bash">k -n mynamespace get jobs
+<pre><code class="language-bash">k -n mynamespace get jobs
 </code></pre>
-
 <h4 id="reports">Reports</h4>
 <p>see current resource usage vs limits per namespace</p>
-<pre><code class="bash">k get quota -A -o custom-columns=NAMESPACE:metadata.namespace,CPU_LIMIT:{'.status.hard.limits\.cpu'},CPU_USED:{'.status.used.limits\.cpu'},MEM_LIMIT:{'.status.hard.limits\.memory'},MEM_USED:{'.status.used.limits\.memory'}
+<pre><code class="language-bash">k get quota -A -o custom-columns=NAMESPACE:metadata.namespace,CPU_LIMIT:{'.status.hard.limits\.cpu'},CPU_USED:{'.status.used.limits\.cpu'},MEM_LIMIT:{'.status.hard.limits\.memory'},MEM_USED:{'.status.used.limits\.memory'}
 </code></pre>
-
 <h2 id="istio">Istio</h2>
 <p>Verify mesh policy exists.</p>
-<pre><code class="bash">k get policies.authentication.istio.io --all-namespaces
+<pre><code class="language-bash">k get policies.authentication.istio.io --all-namespaces
 k get meshpolicies.authentication.istio.io
 </code></pre>
-
 <p>Get all istio destination rule hosts.</p>
-<pre><code class="bash">k get destinationrules.networking.istio.io --all-namespaces -o yaml | grep &quot;host:&quot;
+<pre><code class="language-bash">k get destinationrules.networking.istio.io --all-namespaces -o yaml | grep &quot;host:&quot;
 </code></pre>
-
 <p>Change envoy sidecare log level.</p>
-<pre><code class="bash">k -n easybake exec -it -c istio-proxy easybake-ui-6bd7f9bf-9pb5w -- curl -XPOST http://localhost:15000/logging?level=trace
+<pre><code class="language-bash">k -n easybake exec -it -c istio-proxy easybake-ui-6bd7f9bf-9pb5w -- curl -XPOST http://localhost:15000/logging?level=trace
 </code></pre>
-
 <p>Show given envoy configuration.</p>
-<pre><code class="bash">istioctl proxy-config clusters -n istio-system istio-ingressgateway-65576f8745-kbvgl -o json
+<pre><code class="language-bash">istioctl proxy-config clusters -n istio-system istio-ingressgateway-65576f8745-kbvgl -o json
 </code></pre>
-
 <p>Show routing for a port on a pod.</p>
-<pre><code class="bash">istioctl proxy-config listeners easybake-ui-6bd7f9bf-klhvx -n easybake --port 3800 -o json
+<pre><code class="language-bash">istioctl proxy-config listeners easybake-ui-6bd7f9bf-klhvx -n easybake --port 3800 -o json
 </code></pre>
-
 <p>Get configured proxy routes. useful for when traffic is not making it to destination.</p>
-<pre><code class="bash">istioctl proxy-config route -n istio-system istio-ingressgateway-65576f8745-kbvgl -o json
+<pre><code class="language-bash">istioctl proxy-config route -n istio-system istio-ingressgateway-65576f8745-kbvgl -o json
 </code></pre>
-
 <h3 id="traffic-management">Traffic Management</h3>
 <ul>
 <li>Enabled locality-load balancing if it's not enabled by default.</li>
@@ -237,15 +221,22 @@ iptables -F
 iptables -X
 systemctl start docker.service
 </code></pre>
-
 <h2 id="weave">Weave</h2>
 <p><a href="https://github.com/weaveworks/weave/releases">Download</a> the weave executable and place on k8s host. Make sure the version matches what is running in the cluster.</br>
 Connection status between all hosts on the weave overlay network. If run on a healthy node the unhealthy node wont show up in the output. If run on an unhealthy node you will get no results</p>
 <pre><code>./weave status peers
 </code></pre>
-
 <p>Connection from the host you are on to the other hosts in the k8s cluster on the weave overlay network. If run on a healthy node you will see connections that could not be established in the output if there is an unhealthy node. If run on an unhealthy node you will see all the connections fail.</p>
 <pre><code>./weave status connections
+</code></pre>
+<h2 id="etcd">Etcd</h2>
+<p>The env variable <code>$ETCDCTL_ENDPOINTS</code> is set by default to the local listening address.</p>
+<p>For checking status and health interactively it's best to use the flag <code>--write-out</code> with the value <code>"fields"</code>, while it's easier to parse programmatically when the value is <code>"json"</code>. For the below I'll assume it's all interactive.</p>
+<p>Check health.</p>
+<pre><code>etcdctl endpoint health --write-out=&quot;fields&quot;
+</code></pre>
+<p>Check status.</p>
+<pre><code>etcdctl endpoint status --write-out=&quot;fields&quot;
 </code></pre>
               
             </div>
