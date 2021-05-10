@@ -67,3 +67,10 @@ get_params(){
 source functions.sh
 get_params "${@}"
 ```
+
+Check positional arguments.
+
+```
+name=${1:?"Error: parameter missing Name"}
+age=${2:?"Error: parameter missing Age"}
+```
