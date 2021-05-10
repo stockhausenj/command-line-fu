@@ -131,7 +131,7 @@ Counts on your connections in your linux environment.
 
 Get remote certificate details with curl.
 
-`curl --insecure -vvI https://site.domain.com 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'
+`curl --insecure -vvI https://site.domain.com 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'`
 
 ## Processes
 View CPU and memory usage of single process.
