@@ -26,3 +26,12 @@ Use `timeit` to measure execution time of small code snippets.
 timeit my_gen = [x for x in my_list]
 timeit my_gen = (x for x in my_list)
 ```
+
+When wanting to access the indices and the elements.
+
+```
+my_list = [2, 4, 6, 8, 10]
+
+for i, v in enumerate(my_list):
+    print("index: ", i, "value: ", v)
+```
