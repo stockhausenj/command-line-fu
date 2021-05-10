@@ -74,3 +74,7 @@ Check positional arguments.
 name=${1:?"Error: parameter missing Name"}
 age=${2:?"Error: parameter missing Age"}
 ```
+
+Create default value for variable.
+
+`name=${name:-Unknown}`
