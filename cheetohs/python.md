@@ -19,3 +19,10 @@ Generator expressions provide a more efficient way to deal with large input sequ
 ```
 my_gen = (x for x in my_list)
 ```
+
+Use `timeit` to measure execution time of small code snippets.
+
+```
+timeit my_gen = [x for x in my_list]
+timeit my_gen = (x for x in my_list)
+```
