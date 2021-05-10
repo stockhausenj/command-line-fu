@@ -5,9 +5,7 @@ One-liner to handle return code of previous command.
 [[ -z "${v1}" && -z "${v2}" ]] && { echo "need v1 and v2"; exit 1; }
 ```
 
-Get params.
-
-Save this script as `functions.sh`.
+Get params. Save this script as `functions.sh` and then source it in.
 
 ```
 get_params(){
@@ -63,9 +61,6 @@ get_params(){
     [[ -z "${AGE}" && -z "${NAME}" ]] && { echo "You must provide either a Name or Age '--name joe or --age 25'. exiting.."; exit 1; }
 }
 ```
-
-Then source it in.
-
 ```
 #!/bin/bash
 ## reads in name and age, has boolean flag "--reset" which changes age to be 1source functions.shget_params "${@}"
