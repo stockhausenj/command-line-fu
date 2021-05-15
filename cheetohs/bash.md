@@ -25,7 +25,6 @@ done
 if [ -z "${name}" ] || [ -z "${age}" ]; then
     usage
 fi
-
 ```
 
 Check positional arguments.
