@@ -81,8 +81,24 @@
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#general-networking">General Networking</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#flush-iptables-on-a-host">Flush iptables on a Host</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#weave">Weave</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#updating-mtu">Updating MTU</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#debugging">Debugging</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#issues">Issues</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#disabling-fast-datapath-fastdp-encryption">Disabling Fast Datapath (fastdp) Encryption</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#etcd">Etcd</a>
     </li>
@@ -211,7 +227,7 @@ k get meshpolicies.authentication.istio.io
 <li>Use locality-prioritized load balancing to decrease latency and egress costs. This mode tells envoy to send requests to pods on nodes that match the locality labels on the sender node. This mode does not work without OD configurations.</li>
 </ul>
 <h2 id="general-networking">General Networking</h2>
-<p>Flush iptables on a host</p>
+<h3 id="flush-iptables-on-a-host">Flush iptables on a Host</h3>
 <pre><code>systemctl stop docker.service
 iptables -F -t nat
 iptables -X -t nat
@@ -223,12 +239,26 @@ systemctl start docker.service
 </code></pre>
 <h2 id="weave">Weave</h2>
 <p><a href="https://github.com/weaveworks/weave/releases">Download</a> the weave executable and place on k8s host. Make sure the version matches what is running in the cluster.</br>
+Or shell into the <code>weave</code> container in the weave pod. Use the <code>--local</code> before all commands.</br>
 Connection status between all hosts on the weave overlay network. If run on a healthy node the unhealthy node wont show up in the output. If run on an unhealthy node you will get no results</p>
 <pre><code>./weave status peers
 </code></pre>
 <p>Connection from the host you are on to the other hosts in the k8s cluster on the weave overlay network. If run on a healthy node you will see connections that could not be established in the output if there is an unhealthy node. If run on an unhealthy node you will see all the connections fail.</p>
 <pre><code>./weave status connections
 </code></pre>
+<p>Other resources:
+* <a href="https://www.weave.works/docs/net/latest/kubernetes/kube-addon/">weave kubernetes addon</a>
+* <a href="https://www.weave.works/docs/net/latest/troubleshooting/">troubleshooting weave</a></p>
+<h3 id="updating-mtu">Updating MTU</h3>
+<p>To update the MTU edit the <code>WEAVE_MTU</code> env variable set for the <code>weave</code> container. After the patch the <code>datapath</code> interface on all nodes will get updated but the <code>weave</code> and VETH interfaces are not updated. Restarting the node will update the interfaces that were not updated. If all production endpoints in a single cluster I suggest scheduling this when end user activity is lowest.</p>
+<h3 id="debugging">Debugging</h3>
+<p>To enable debug logs edit the <code>weave-net</code> ds. Add the following <code>env</code> variable to the <code>weave</code> container.</p>
+<pre><code>name: EXTRA_ARGS
+value: --log-level=debug
+</code></pre>
+<h3 id="issues">Issues</h3>
+<h4 id="disabling-fast-datapath-fastdp-encryption">Disabling Fast Datapath (fastdp) Encryption</h4>
+<p>Since the <code>weave-net</code> ds patching is 1 pod at a time non encrypted traffic is not accepted by nodes where the pod was not patched yet. Also this caused weave to overlay switch to sleeve. After the patch was fully complete restarting a pod would still result it no fastdp heartbeat ack (handleHeartbeatAck). I believe it's because of iptable rules that were not flushed/changed after the patch. After I <a href="#Flush-iptables-on-a-Host">flushed</a> I saw established fastdp connections. Before the iptables flush I was seeing a ever increasing number of <code>TX-DRP</code> packets for the <code>vxlan-6784</code> interface.</p>
 <h2 id="etcd">Etcd</h2>
 <p>The env variable <code>$ETCDCTL_ENDPOINTS</code> is set by default to the local listening address.</p>
 <p>For checking status and health interactively it's best to use the flag <code>--write-out</code> with the value <code>"fields"</code>, while it's easier to parse programmatically when the value is <code>"json"</code>. For the below I'll assume it's all interactive.</p>
