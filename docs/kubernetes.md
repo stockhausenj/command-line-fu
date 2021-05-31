@@ -133,7 +133,7 @@ value: --log-level=debug
 ```
 ### Issues
 #### Disabling Fast Datapath (fastdp) Encryption
-Since the `weave-net` ds patching is 1 pod at a time non encrypted traffic is not accepted by nodes where the pod was not patched yet. Also this caused weave to overlay switch to sleeve. After the patch was fully complete restarting a pod would still result it no fastdp heartbeat ack (handleHeartbeatAck). I believe it's because of iptable rules that were not flushed/changed after the patch. After I [flushed](#flush-iptables-on-a-Host) I saw established fastdp connections. Before the iptables flush I was seeing a ever increasing number of `TX-DRP` packets for the `vxlan-6784` interface.
+Since the `weave-net` ds patching is 1 pod at a time non encrypted traffic is not accepted by nodes where the pod was not patched yet. Also this caused weave to overlay switch to sleeve. After the patch was fully complete restarting a pod would still result it no fastdp heartbeat ack (handleHeartbeatAck). I believe it's because of iptable rules that were not flushed/changed after the patch. After I [flushed](#flush-iptables-on-a-host) I saw established fastdp connections. Before the iptables flush I was seeing a ever increasing number of `TX-DRP` packets for the `vxlan-6784` interface.
 
 
 ## Etcd
