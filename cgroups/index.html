@@ -111,8 +111,8 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="cgroups">cgroups<a class="headerlink" href="#cgroups" title="Permanent link"></a></h1>
-<h2 id="ubuntu-1804">Ubuntu 18.04<a class="headerlink" href="#ubuntu-1804" title="Permanent link"></a></h2>
+                <h1 id="cgroups">cgroups<a class="headerlink" href="#cgroups" title="Permanent link">&para;</a></h1>
+<h2 id="ubuntu-1804">Ubuntu 18.04<a class="headerlink" href="#ubuntu-1804" title="Permanent link">&para;</a></h2>
 <p>view cgroup info of process via pid<br/>
 <code>ps -o cgroup 12345</code></p>
 <p>create memory cgroup<br/>
@@ -121,7 +121,7 @@
 <code>echo 4096 | sudo tee /sys/fs/cgroup/memory/cgroup-a/memory.limit_in_bytes</code></p>
 <p>add process via pid to the cgroup cgroup-a<br/>
 <code>sudo echo 12345 &gt; /sys/fs/cgroup/memory/cgroup-a/cgroup.procs</code></p>
-<h3 id="using-libcgroup">using libcgroup<a class="headerlink" href="#using-libcgroup" title="Permanent link"></a></h3>
+<h3 id="using-libcgroup">using libcgroup<a class="headerlink" href="#using-libcgroup" title="Permanent link">&para;</a></h3>
 <p>create memory cgroup cgroup-a<br/>
 <code>sudo cgcreate -g memory:cgroup-a</code></p>
 <p>delete memory cgroup cgroup-a<br/>
