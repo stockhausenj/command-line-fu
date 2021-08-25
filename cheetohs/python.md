@@ -20,8 +20,10 @@ my_gen = (x for x in my_list)
 
 Use `timeit` to measure execution time of small code snippets.
 ```
-timeit my_gen = [x for x in my_list]
-timeit my_gen = (x for x in my_list)
+def test():
+    if (the_word := english_words_dict.get('ghost')):
+        return true
+timeit.timeit('test()', setup='from __main__ import test')
 ```
 
 When wanting to access the indices and the elements.
