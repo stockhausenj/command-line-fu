@@ -1,4 +1,5 @@
-# Ubuntu 16.04
+# Ubuntu X.X
+## Misc
 Show installed packages.
 
 `apt list --installed`
@@ -46,8 +47,6 @@ View scsi drives.
 
 `ls -1d /sys/class/scsi_device/*/device/block/*`
 
-# Ubuntu 18.04
-## Misc
 Compare real, effective and saved id of process.
 
 `ps -eo pid,ruid,euid,suid | grep 1234`
@@ -147,8 +146,3 @@ List all mounted filesystems with mount options.
 View status.
 
 `timedatectl status`
-
-# Ubuntu 19.10
-## Misc
-Detect sound devices.
-`pulseaudio -k && sudo alsa force-reload`
