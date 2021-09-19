@@ -62,7 +62,17 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Kubernetes</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#kubectl">kubectl</a>
+    <li class="toctree-l2"><a class="reference internal" href="#cluster">Cluster</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#host">Host</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#scheduling">Scheduling</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#kubelet">Kubelet</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#kubectl">Kubectl</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#general-practices">General Practices</a>
     </li>
@@ -150,10 +160,26 @@
             <div class="section">
               
                 <h1 id="kubernetes">Kubernetes<a class="headerlink" href="#kubernetes" title="Permanent link">&para;</a></h1>
-<h2 id="kubectl">kubectl<a class="headerlink" href="#kubectl" title="Permanent link">&para;</a></h2>
+<h2 id="cluster">Cluster<a class="headerlink" href="#cluster" title="Permanent link">&para;</a></h2>
+<h3 id="host">Host<a class="headerlink" href="#host" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Critical OS system daemons placed in a top level cgroup.</li>
+</ul>
+<h3 id="scheduling">Scheduling<a class="headerlink" href="#scheduling" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Use pod priority to ensure system pods have scheduling priority.</li>
+</ul>
+<h3 id="kubelet">Kubelet<a class="headerlink" href="#kubelet" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Protect host from going OOM with <code>--eviction-hard</code>. It measures off of actual memory usage. Compared to memory requested.</li>
+<li>Pass Kubernetes system daemon cgroup in with <code>--kube-reserved-cgroup</code>. If no cgroup then reserve resources for the daemons with <code>--kube-reserved</code>.</li>
+<li>Pass OS system daemon cgroup in with <code>--system-reserved-cgroup</code>. If no cgroup then reserve resources for the daemons with <code>--system-reserved</code>.</li>
+<li>Place Kubernetes and OS system daemons in respective cgroups.</li>
+</ul>
+<h2 id="kubectl">Kubectl<a class="headerlink" href="#kubectl" title="Permanent link">&para;</a></h2>
 <h3 id="general-practices">General Practices<a class="headerlink" href="#general-practices" title="Permanent link">&para;</a></h3>
 <ul>
-<li>use <code>--context=</code> to ensure correct context is targeted</li>
+<li>Use <code>--context=</code> to ensure correct context is targeted.</li>
 </ul>
 <h3 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h3>
 <p>setup env<br/></p>
