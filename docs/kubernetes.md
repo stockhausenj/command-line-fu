@@ -1,7 +1,17 @@
 # Kubernetes
-## kubectl
+## Cluster
+### Host
+* Critical OS system daemons placed in a top level cgroup.
+### Scheduling
+* Use pod priority to ensure system pods have scheduling priority.
+### Kubelet
+* Protect host from going OOM with `--eviction-hard`. It measures off of actual memory usage. Compared to memory requested.
+* Pass Kubernetes system daemon cgroup in with `--kube-reserved-cgroup`. If no cgroup then reserve resources for the daemons with `--kube-reserved`.
+* Pass OS system daemon cgroup in with `--system-reserved-cgroup`. If no cgroup then reserve resources for the daemons with `--system-reserved`.
+* Place Kubernetes and OS system daemons in respective cgroups.
+## Kubectl
 ### General Practices 
-* use `--context=` to ensure correct context is targeted
+* Use `--context=` to ensure correct context is targeted.
 ### CLI
 setup env<br/>
 ```bash
