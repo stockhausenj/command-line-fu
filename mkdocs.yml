@@ -8,6 +8,7 @@ nav:
     - AWS: aws-land.md
     - HashiCorp Vault: vault.md
     - Elasticsearch: elasticsearch.md
+    - Web: web.md
 theme: readthedocs
 
 markdown_extensions:

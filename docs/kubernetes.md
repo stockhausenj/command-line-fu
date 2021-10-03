@@ -2,13 +2,17 @@
 ## Cluster
 ### Host
 * Critical OS system daemons placed in a top level cgroup.
-### Scheduling
-* Use pod priority to ensure system pods have scheduling priority.
 ### Kubelet
 * Protect host from going OOM with `--eviction-hard`. It measures off of actual memory usage. Compared to memory requested.
 * Pass Kubernetes system daemon cgroup in with `--kube-reserved-cgroup`. If no cgroup then reserve resources for the daemons with `--kube-reserved`.
 * Pass OS system daemon cgroup in with `--system-reserved-cgroup`. If no cgroup then reserve resources for the daemons with `--system-reserved`.
 * Place Kubernetes and OS system daemons in respective cgroups.
+### Scheduling
+* Apply pod priority to all system critical pods. Good idea to include monitoring pods too.
+* If deploying to multiple zones use pod topology spread constraints to spread pods across zones. This is to achieve high availabilty across zones.
+### Scaling
+* Cluster Autoscaler (CA) is a requirement.
+
 ## Kubectl
 ### General Practices 
 * Use `--context=` to ensure correct context is targeted.
