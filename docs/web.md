@@ -1,6 +1,9 @@
 # Web
 ## Performance
 ### Real User Monitoring (RUM)
+#### Web Performance API
+Mozilla doc <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance_API">here</a>.
+
 The three measurements Cloudflare used during a edge network performance test. <a href="https://blog.cloudflare.com/benchmarking-edge-network-performance/">Source</a>.
 
 TCP connection time

@@ -77,6 +77,7 @@ Remove all empty lines.
 `g/^\s*$/d`
 
 ## Networking
+###  Misc
 Clear DNS cache.
 
 `sudo systemd-resolve --flush-caches`
@@ -97,14 +98,24 @@ Helpful tcpdump commands.
 
 <a href="https://hackertarget.com/tcpdump-examples/">commands</a>
 
-See what process is listening on a port.
-
-`netstat -tlnp`
-
 Query specific DNS server.
 
 `dig gitlab.blueorigin.com +noall +answer`
 
+Get remote certificate details with curl.
+
+`curl --insecure -vvI https://site.domain.com 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'`
+
+### netstat
+Connection count by state.
+
+`netstat -ant | awk '{print $6}' | sort | uniq -c | sort -n`
+
+See what process is listening on a port.
+
+`netstat -tlnp`
+
+### netcat
 Port scan.
 
 `netcat -z -v domain.com 1-1000`
@@ -123,14 +134,6 @@ Client/Server netcat comm.
 server> netcat -l 4444
 client> netcat domain.com 4444
 ```
-
-Counts on your connections in your linux environment.
-
-`netstat -ant | awk '{print $6}' | sort | uniq -c | sort -n`
-
-Get remote certificate details with curl.
-
-`curl --insecure -vvI https://site.domain.com 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'`
 
 ## Processes
 View CPU and memory usage of single process.
