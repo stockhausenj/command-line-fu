@@ -1,4 +1,5 @@
 site_name: MkLorum
+
 nav:
     - Home: index.md
     - cgroups: cgroups.md
@@ -6,4 +7,10 @@ nav:
     - Kubernetes: kubernetes.md
     - AWS: aws-land.md
     - HashiCorp Vault: vault.md
+    - Elasticsearch: elasticsearch.md
+    - Web: web.md
 theme: readthedocs
+
+markdown_extensions:
+    - toc:
+        permalink: true

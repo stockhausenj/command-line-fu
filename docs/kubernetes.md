@@ -1,7 +1,21 @@
 # Kubernetes
-## kubectl
+## Cluster
+### Host
+* Critical OS system daemons placed in a top level cgroup.
+### Kubelet
+* Protect host from going OOM with `--eviction-hard`. It measures off of actual memory usage. Compared to memory requested.
+* Pass Kubernetes system daemon cgroup in with `--kube-reserved-cgroup`. If no cgroup then reserve resources for the daemons with `--kube-reserved`.
+* Pass OS system daemon cgroup in with `--system-reserved-cgroup`. If no cgroup then reserve resources for the daemons with `--system-reserved`.
+* Place Kubernetes and OS system daemons in respective cgroups.
+### Scheduling
+* Apply pod priority to all system critical pods. Good idea to include monitoring pods too.
+* If deploying to multiple zones use pod topology spread constraints to spread pods across zones. This is to achieve high availabilty across zones.
+### Scaling
+* Cluster Autoscaler (CA) is a requirement.
+
+## Kubectl
 ### General Practices 
-* use `--context=` to ensure correct context is targeted
+* Use `--context=` to ensure correct context is targeted.
 ### CLI
 setup env<br/>
 ```bash
@@ -97,7 +111,7 @@ istioctl proxy-config route -n istio-system istio-ingressgateway-65576f8745-kbvg
 
 
 ## General Networking
-Flush iptables on a host
+### Flush iptables on a Host
 ```
 systemctl stop docker.service
 iptables -F -t nat
@@ -111,6 +125,7 @@ systemctl start docker.service
 
 ## Weave
 <a href="https://github.com/weaveworks/weave/releases">Download</a> the weave executable and place on k8s host. Make sure the version matches what is running in the cluster.</br>
+Or shell into the `weave` container in the weave pod. Use the `--local` before all commands.</br>
 Connection status between all hosts on the weave overlay network. If run on a healthy node the unhealthy node wont show up in the output. If run on an unhealthy node you will get no results
 ```
 ./weave status peers
@@ -119,6 +134,21 @@ Connection from the host you are on to the other hosts in the k8s cluster on the
 ```
 ./weave status connections
 ```
+Other resources:
+* <a href="https://www.weave.works/docs/net/latest/kubernetes/kube-addon/">weave kubernetes addon</a>
+* <a href="https://www.weave.works/docs/net/latest/troubleshooting/">troubleshooting weave</a>
+### Updating MTU
+To update the MTU edit the `WEAVE_MTU` env variable set for the `weave` container. After the patch the `datapath` interface on all nodes will get updated but the `weave` and VETH interfaces are not updated. Restarting the node will update the interfaces that were not updated. If all production endpoints in a single cluster I suggest scheduling this when end user activity is lowest.
+### Debugging
+To enable debug logs edit the `weave-net` ds. Add the following `env` variable to the `weave` container.
+```
+name: EXTRA_ARGS
+value: --log-level=debug
+```
+### Issues
+#### Disabling Fast Datapath (fastdp) Encryption
+Since the `weave-net` ds patching is 1 pod at a time non encrypted traffic is not accepted by nodes where the pod was not patched yet. Also this caused weave to overlay switch to sleeve. After the patch was fully complete restarting a pod would still result it no fastdp heartbeat ack (handleHeartbeatAck). I believe it's because of iptable rules that were not flushed/changed after the patch. After I [flushed](#flush-iptables-on-a-host) I saw established fastdp connections. Before the iptables flush I was seeing a ever increasing number of `TX-DRP` packets for the `vxlan-6784` interface.
+
 
 ## Etcd
 The env variable `$ETCDCTL_ENDPOINTS` is set by default to the local listening address.
