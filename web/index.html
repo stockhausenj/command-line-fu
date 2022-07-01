@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Linux System Calls - MkLorum</title>
+  <title>Web - MkLorum</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Linux System Calls";
-    var mkdocs_page_input_path = "linux-system-calls.md";
+    var mkdocs_page_name = "Web";
+    var mkdocs_page_input_path = "web.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -55,24 +55,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../cgroups/">cgroups</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Linux System Calls</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#seccomp-secure-computing-mode">seccomp (secure computing mode)</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#dup2">dup2</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#prlimit">prlimit</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#printk">printk</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#from-userspace">from userspace</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#console_loglevel">console_loglevel</a>
-    </li>
-        </ul>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../linux-system-calls/">Linux System Calls</a>
                     </li>
                 </ul>
                 <ul>
@@ -91,8 +75,23 @@
                     <li class="toctree-l1"><a class="reference internal" href="../elasticsearch/">Elasticsearch</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../web/">Web</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Web</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#performance">Performance</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#real-user-monitoring-rum">Real User Monitoring (RUM)</a>
+<<<<<<< HEAD
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#web-performance-api">Web Performance API</a>
+    </li>
+        </ul>
+=======
+>>>>>>> 307e6918ba9675a6470a2ebf9bf981636049fb41
+    </li>
+        </ul>
+    </li>
+    </ul>
                     </li>
                 </ul>
       </div>
@@ -116,7 +115,7 @@
     
       
     
-    <li>Linux System Calls</li>
+    <li>Web</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -127,52 +126,41 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="linux-system-calls">Linux System Calls<a class="headerlink" href="#linux-system-calls" title="Permanent link">&para;</a></h1>
-<h2 id="seccomp-secure-computing-mode">seccomp (secure computing mode)<a class="headerlink" href="#seccomp-secure-computing-mode" title="Permanent link">&para;</a></h2>
-<p>Filter system calls issued by a program. The filters are based on BPF (Berkley Packet Filters).</br>
-The idea behind seccomp is to restrict the system calls that can be made from a process, he said. The Linux kernel has a few hundred system calls, but most of them are not needed by any given process. If a process can be compromised and tricked into making other system calls, though, it may lead to a security vulnerability that could result in the compromise of the whole system. By restricting what system calls can be made, seccomp is a key component for building application sandboxes.</p>
-<pre><code class="language-c">#include &lt;seccomp.h&gt; /* libseccomp */
-scmp_filter_ctx ctx;
-ctx = seccomp_init(SCMP_ACT_KILL); // default action: kill
-seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(dup2), 2, 
-                      SCMP_A0(SCMP_CMP_EQ, 1),
-                      SCMP_A1(SCMP_CMP_EQ, 2));
-// pass
-dup2(1,2);
-
-//fail
-dup2(2, 42);
+                <h1 id="web">Web<a class="headerlink" href="#web" title="Permanent link">&para;</a></h1>
+<h2 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h2>
+<h3 id="real-user-monitoring-rum">Real User Monitoring (RUM)<a class="headerlink" href="#real-user-monitoring-rum" title="Permanent link">&para;</a></h3>
+<<<<<<< HEAD
+<h4 id="web-performance-api">Web Performance API<a class="headerlink" href="#web-performance-api" title="Permanent link">&para;</a></h4>
+<p>Mozilla doc <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance_API">here</a>.</p>
+=======
+>>>>>>> 307e6918ba9675a6470a2ebf9bf981636049fb41
+<p>The three measurements Cloudflare used during a edge network performance test. <a href="https://blog.cloudflare.com/benchmarking-edge-network-performance/">Source</a>.</p>
+<p>TCP connection time</p>
+<pre><code class="language-javascript">// connectEnd - connectStart
 </code></pre>
-<h2 id="dup2">dup2<a class="headerlink" href="#dup2" title="Permanent link">&para;</a></h2>
-<p>Change file descriptor.</p>
-<pre><code class="language-c">// redirect stderr to stdout
-dup2(1, 2);
+<p>TTFB (time to first byte)</p>
+<pre><code class="language-javascript">// responseStart - connectEnd
 </code></pre>
-<h2 id="prlimit">prlimit<a class="headerlink" href="#prlimit" title="Permanent link">&para;</a></h2>
-<p>Get and set process resource limits. This routine makes ULIMIT(3) obsolete.</p>
-<pre><code class="language-c">struct rlimit old, new; 
-struct rlimit *newp; 
-pid_t pid;
-
-new.rlim_cur = /* soft limit */
-new.rlim_max = /* hard limit */
-newp = &amp;new;
-
-prlimit(pid, RLIMIT_CPU, newp, &amp;old) /* resource options in PRLIMIT(2) */
+<p>TTLB (time to last byte)</p>
+<pre><code class="language-javascript">// requestStart - connectEnd
 </code></pre>
-<p>There is also a CLI tool for prlimit in PRLIMIT(1).</p>
-<h2 id="printk">printk<a class="headerlink" href="#printk" title="Permanent link">&para;</a></h2>
-<p>Logging mechanism for debugging kernel space code.<br></p>
-<pre><code class="language-c">#include &lt;linux/kernel.h&gt;  /* Needed for KERN_ALERT */
-printk(&quot;&lt;0&gt;System dead.\n&quot;);
+<p>To create a report via Console:</p>
+<pre><code class="language-javascript">var htmls = performance.getEntriesByType(&quot;navigation&quot;);
+for (var i=0; i &lt; htmls.length; i++) {
+    console.log(&quot;Name: &quot; + (htmls[i].name));
+    console.log(&quot;TCP connection time: &quot; + (htmls[i].connectEnd - htmls[i].connectStart) + &quot; ms&quot;);
+    console.log(&quot;TTFB: &quot; + (htmls[i].responseStart - htmls[i].connectEnd) + &quot; ms&quot;);
+    console.log(&quot;TTLB: &quot; + (htmls[i].requestStart - htmls[i].connectEnd) + &quot; ms&quot;);
+}
+var resources = performance.getEntriesByType(&quot;resource&quot;);
+for (var i=0; i &lt; resources.length; i++) {
+    console.log(&quot;Name: &quot; + (resources[i].name));
+    console.log(&quot;TCP connection time: &quot; + (resources[i].connectEnd - resources[i].connectStart) + &quot; ms&quot;);
+    console.log(&quot;TTFB: &quot; + (resources[i].responseStart - resources[i].connectEnd) + &quot; ms&quot;);
+    console.log(&quot;TTLB: &quot; + (resources[i].requestStart - resources[i].connectEnd) + &quot; ms&quot;);
+}
 </code></pre>
-<h3 id="from-userspace">from userspace<a class="headerlink" href="#from-userspace" title="Permanent link">&para;</a></h3>
-<pre><code>$ echo &quot;2Writing critical printk messages from userspace&quot; &gt;/dev/kmsg
-$ dmesg
-</code></pre>
-<h3 id="console_loglevel">console_loglevel<a class="headerlink" href="#console_loglevel" title="Permanent link">&para;</a></h3>
-<p>To determine current console_loglevel: <code>$ cat /proc/sys/kernel/printk</code><br>
-The output values are in respect: current default minimum boot-time-default</p>
+<p>Other useful loading time metrics available <a href="https://developer.mozilla.org/en-US/docs/Web/API/Resource_Timing_API/Using_the_Resource_Timing_API">here</a>.</p>
               
             </div>
           </div>
@@ -180,10 +168,8 @@ The output values are in respect: current default minimum boot-time-default</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../kubernetes/" class="btn btn-neutral float-right" title="Kubernetes">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-      
-        <a href="../cgroups/" class="btn btn-neutral" title="cgroups"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../elasticsearch/" class="btn btn-neutral" title="Elasticsearch"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -209,10 +195,8 @@ The output values are in respect: current default minimum boot-time-default</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../cgroups/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../elasticsearch/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
-      
-        <span style="margin-left: 15px"><a href="../kubernetes/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

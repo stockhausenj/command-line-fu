@@ -54,7 +54,9 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">cgroups</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#ubuntu-1804">Ubuntu 18.04</a>
+    <li class="toctree-l2"><a class="reference internal" href="#view-cgroup">View cgroup</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#modifying-cgroup">Modifying cgroup</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#using-libcgroup">using libcgroup</a>
     </li>
@@ -77,6 +79,14 @@
                 </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../vault/">HashiCorp Vault</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../elasticsearch/">Elasticsearch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../web/">Web</a>
                     </li>
                 </ul>
       </div>
@@ -111,17 +121,28 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="cgroups">cgroups</h1>
-<h2 id="ubuntu-1804">Ubuntu 18.04</h2>
+                <h1 id="cgroups">cgroups<a class="headerlink" href="#cgroups" title="Permanent link">&para;</a></h1>
+<<<<<<< HEAD
+<h2 id="view-cgroup">View cgroup<a class="headerlink" href="#view-cgroup" title="Permanent link">&para;</a></h2>
+<p>view cgroup with <code>ps</code></p>
+<p><code>ps -o cgroup 12345</code></p>
+<p>cat cgroup</p>
+<p><code>cat /proc/$PID/cgroup</code></p>
+<p>view all cgroup options</p>
+<p><code>find /sys/fs/cgroup -path "*$CGROUP*"</code></p>
+<h2 id="modifying-cgroup">Modifying cgroup<a class="headerlink" href="#modifying-cgroup" title="Permanent link">&para;</a></h2>
+=======
+<h2 id="ubuntu-1804">Ubuntu 18.04<a class="headerlink" href="#ubuntu-1804" title="Permanent link">&para;</a></h2>
 <p>view cgroup info of process via pid<br/>
 <code>ps -o cgroup 12345</code></p>
+>>>>>>> 307e6918ba9675a6470a2ebf9bf981636049fb41
 <p>create memory cgroup<br/>
 <code>sudo mkdir /sys/fs/cgroup/memory/cgroup-a</code></p>
 <p>limit memory of anything running in the cgroup cgroup-a to 4096 bytes<br/>
 <code>echo 4096 | sudo tee /sys/fs/cgroup/memory/cgroup-a/memory.limit_in_bytes</code></p>
 <p>add process via pid to the cgroup cgroup-a<br/>
 <code>sudo echo 12345 &gt; /sys/fs/cgroup/memory/cgroup-a/cgroup.procs</code></p>
-<h3 id="using-libcgroup">using libcgroup</h3>
+<h3 id="using-libcgroup">using libcgroup<a class="headerlink" href="#using-libcgroup" title="Permanent link">&para;</a></h3>
 <p>create memory cgroup cgroup-a<br/>
 <code>sudo cgcreate -g memory:cgroup-a</code></p>
 <p>delete memory cgroup cgroup-a<br/>
