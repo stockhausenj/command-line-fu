@@ -1,7 +1,7 @@
 # cgroup stuff
 
 ## Examples
-### Get CPU max
+### Get cgroup
 1. Get process PID.
-1. Get the cgroup that the PID belongs to. `cat /proc/$PID/cgroup | grep cpuset`
-1. Inspect cgroup. `cat /sys/fs/cgroup/cpu/$CGROUP/cpu.cfs_quota_us`
+1. Get the cgroup that the PID belongs to: `cat /proc/$PID/cgroup`
+1. View cgroup options: `find /sys/fs/cgroup -path "*/system.slice/ssh.service/*`
