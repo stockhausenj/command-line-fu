@@ -13,6 +13,17 @@ view all cgroup options
 
 `find /sys/fs/cgroup -path "*$CGROUP*"`
 
+### Common options
+view cpu limit
+
+`cat /sys/fs/cgroup/cpu,cpuacct/$CGROUP/cpu.shares`
+
+view cpu request
+
+```
+cat /sys/fs/cgroup/cpu,cpuacct/$CGROUP/cpu.cfs_quota_us
+cat /sys/fs/cgroup/cpu,cpuacct/$CGROUP/cpu.cfs_period_us
+```
 ## Modifying cgroup
 
 create memory cgroup<br/>
