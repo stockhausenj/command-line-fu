@@ -55,6 +55,10 @@
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">cgroups</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#view-cgroup">View cgroup</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#common-options">Common options</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#modifying-cgroup">Modifying cgroup</a>
         <ul>
@@ -129,6 +133,13 @@
 <p><code>cat /proc/$PID/cgroup</code></p>
 <p>view all cgroup options</p>
 <p><code>find /sys/fs/cgroup -path "*$CGROUP*"</code></p>
+<h3 id="common-options">Common options<a class="headerlink" href="#common-options" title="Permanent link">&para;</a></h3>
+<p>view cpu limit</p>
+<p><code>cat /sys/fs/cgroup/cpu,cpuacct/$CGROUP/cpu.shares</code></p>
+<p>view cpu request</p>
+<pre><code>cat /sys/fs/cgroup/cpu,cpuacct/$CGROUP/cpu.cfs_quota_us
+cat /sys/fs/cgroup/cpu,cpuacct/$CGROUP/cpu.cfs_period_us
+</code></pre>
 <h2 id="modifying-cgroup">Modifying cgroup<a class="headerlink" href="#modifying-cgroup" title="Permanent link">&para;</a></h2>
 <p>create memory cgroup<br/>
 <code>sudo mkdir /sys/fs/cgroup/memory/cgroup-a</code></p>
