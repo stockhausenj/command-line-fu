@@ -1,9 +1,19 @@
 # cgroups
 
-## Ubuntu 18.04
+## View cgroup
+view cgroup with `ps`
 
-view cgroup info of process via pid<br/>
 `ps -o cgroup 12345`
+
+cat cgroup
+
+`cat /proc/$PID/cgroup`
+
+view all cgroup options
+
+`find /sys/fs/cgroup -path "*$CGROUP*"`
+
+## Modifying cgroup
 
 create memory cgroup<br/>
 `sudo mkdir /sys/fs/cgroup/memory/cgroup-a`
