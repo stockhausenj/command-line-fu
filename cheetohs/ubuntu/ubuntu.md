@@ -106,6 +106,11 @@ Get remote certificate details with curl.
 
 `curl --insecure -vvI https://site.domain.com 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'`
 
+### SSH
+Skipping known hosts check.
+
+`ssh -o StrictHostKeyChecking=no user@host.com`
+
 ### netstat
 Connection count by state.
 
