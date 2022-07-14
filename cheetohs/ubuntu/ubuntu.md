@@ -20,13 +20,6 @@ Python 3.6 pip install.
 
 `python3.6 -m pip install <package>`
 
-Deploy SSH key.
-
-```bash
-ssh-copy-id -i ~/.ssh/some_key.pub person@yourserver.com
-ssh person@yourserver.com 'chcon -t ssh_home_t ~/.ssh/authorized_keys'
-```
-
 See which filesystems are supported.
 
 `cat /proc/filesystems`
@@ -107,6 +100,17 @@ Get remote certificate details with curl.
 `curl --insecure -vvI https://site.domain.com 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'`
 
 ### SSH
+Deploy SSH key.
+
+```bash
+ssh-copy-id -i ~/.ssh/some_key.pub person@yourserver.com
+ssh person@yourserver.com 'chcon -t ssh_home_t ~/.ssh/authorized_keys'
+```
+
+Forward SSH agent.
+
+`ssh -A server`
+
 Skipping known hosts check.
 
 `ssh -o StrictHostKeyChecking=no user@host.com`
@@ -149,6 +153,10 @@ View CPU and memory usage of single process.
 List all mounted filesystems with mount options.
 
 `findmnt`
+
+Find the UUIDs for block-level devices
+
+`blkid`
 
 ## NTP
 View status.
