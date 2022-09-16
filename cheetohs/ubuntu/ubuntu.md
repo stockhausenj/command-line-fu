@@ -1,20 +1,8 @@
 # Ubuntu X.X
 ## Misc
-Show installed packages.
-
-`apt list --installed`
-
-Search for available packages.
-
-`apt search <keyworld>`
-
 Check Ubuntu version.
 
 `lsb_release -a`
-
-Test UDP packets listeners.
-
-`echo "Hello" > /dev/udp/127.0.0.1/5005`
 
 Python 3.6 pip install.
 
@@ -24,17 +12,9 @@ See which filesystems are supported.
 
 `cat /proc/filesystems`
 
-Scan local network for hosts.
-
-`nmap -sP 192.168.0.1/24`
-
 Compare real, effective and saved id of process.
 
 `ps -eo pid,ruid,euid,suid | grep 1234`
-
-Check what ports are in use.
-
-`lsof -i -P -n | grep LISTEN`
 
 View scsi drives.
 
@@ -52,7 +32,7 @@ Find and delete old files or folders.
 
 `find ./pattern* -mtime +10 -type f -delete`
 
-Compress directory.
+Compress and gzip directory.
 
 `tar -zcvf archive-name.tar.gz directory-name`
 
@@ -64,6 +44,32 @@ Check where a package will be installed from.
 
 `apt-cache policy _package_`
 
+## Apt
+Show installed packages.
+
+`apt list --installed`
+
+Search for available packages.
+
+`apt search <keyworld>`
+
+Fix broken packages.
+
+```bash
+apt clean
+apt autoremove
+apt update --fix-missing
+apt install -f
+```
+
+See which packages can be upgraded.
+
+`apt list --upgradeable -a`
+
+Change how apt handles a package.
+
+`apt mark <command> <package>`
+
 ## Vim
 Remove all empty lines.
 
@@ -71,6 +77,18 @@ Remove all empty lines.
 
 ## Networking
 ###  Misc
+Scan local network for hosts.
+
+`nmap -sP 192.168.0.1/24`
+
+Check what ports are in use.
+
+`lsof -i -P -n | grep LISTEN`
+
+Test UDP packets listeners.
+
+`echo "Hello" > /dev/udp/127.0.0.1/5005`
+
 Clear DNS cache.
 
 `sudo systemd-resolve --flush-caches`
@@ -90,10 +108,6 @@ List firewall rules by specification.
 Helpful tcpdump commands.
 
 <a href="https://hackertarget.com/tcpdump-examples/">commands</a>
-
-Query specific DNS server.
-
-`dig gitlab.blueorigin.com +noall +answer`
 
 Get remote certificate details with curl.
 
@@ -115,7 +129,21 @@ Skipping known hosts check.
 
 `ssh -o StrictHostKeyChecking=no user@host.com`
 
-### netstat
+### Dig
+Clean output.
+ 
+ ```
+# only return value
+dig google.com +short
+# only return answer
+dig google.com +noall +answer
+```
+
+Query specific DNS resolver.
+
+`dig google.com @1.1.1.1`
+
+### Netstat
 Connection count by state.
 
 `netstat -ant | awk '{print $6}' | sort | uniq -c | sort -n`
@@ -124,7 +152,7 @@ See what process is listening on a port.
 
 `netstat -tlnp`
 
-### netcat
+### Netcat
 Port scan.
 
 `netcat -z -v domain.com 1-1000`
