@@ -15,22 +15,6 @@ Python 3.6 pip install.
 
 `python3.6 -m pip install <package>`
 
-See which filesystems are supported.
-
-`cat /proc/filesystems`
-
-Compare real, effective and saved id of process.
-
-`ps -eo pid,ruid,euid,suid | grep 1234`
-
-View scsi drives.
-
-`ls -1d /sys/class/scsi_device/*/device/block/*`
-
-Compare real, effective and saved id of process.
-
-`ps -eo pid,ruid,euid,suid | grep 1234`
-
 Show groups on newlines.
 
 `id | sed 's/,/\n/g'`
@@ -47,9 +31,9 @@ Recursive search for largest files.
 
 `du -ckx | sort -n`
 
-Check where a package will be installed from.
+Watch a path and run a command whenever modification detected with [watchexec](https://github.com/watchexec/watchexec).
 
-`apt-cache policy _package_`
+`watchexec -r -e py -- python server.py`
 
 ## Apt
 Show installed packages.
@@ -76,6 +60,10 @@ See which packages can be upgraded.
 Change how apt handles a package.
 
 `apt mark <command> <package>`
+
+Check where a package will be installed from.
+
+`apt-cache policy _package_`
 
 ## Vim
 Remove all empty lines.
@@ -184,7 +172,11 @@ View CPU and memory usage of single process.
 
 `ps -p <pid> -o %cpu,%mem,cmd`
 
-## Filesystems
+Compare real, effective and saved id of process.
+
+`ps -eo pid,ruid,euid,suid | grep 1234`
+
+## Storage
 List all mounted filesystems with mount options.
 
 `findmnt`
@@ -192,6 +184,14 @@ List all mounted filesystems with mount options.
 Find the UUIDs for block-level devices
 
 `blkid`
+
+See which filesystems are supported.
+
+`cat /proc/filesystems`
+
+View scsi drives.
+
+`ls -1d /sys/class/scsi_device/*/device/block/*`
 
 ## NTP
 View status.
