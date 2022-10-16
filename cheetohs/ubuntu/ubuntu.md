@@ -4,6 +4,13 @@ Check Ubuntu version.
 
 `lsb_release -a`
 
+Set journal file size/time limit.
+
+```bash
+sudo journalctl --vacuum-size=100M
+sudo journalctl --vacuum-time=10d
+```
+
 Python 3.6 pip install.
 
 `python3.6 -m pip install <package>`
