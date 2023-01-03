@@ -154,11 +154,15 @@ Port scan.
 
 Test TCP connection.
 
-`netcat domain.com 80`
+`netcat -v domain.com 80`
 
 Test UDP connection.
 
 `netcat -u domain.com 53`
+
+Send HTTP body.
+
+`printf 'HEAD / HTTP/1.1\r\nHost: neverssl.com\r\nConnection: close\r\n\r\n' | nc neverssl.com 80`
 
 Client/Server netcat comm.
 
