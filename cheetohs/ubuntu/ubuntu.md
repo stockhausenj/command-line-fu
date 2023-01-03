@@ -84,10 +84,6 @@ Test UDP packets listeners.
 
 `echo "Hello" > /dev/udp/127.0.0.1/5005`
 
-Clear DNS cache.
-
-`sudo systemd-resolve --flush-caches`
-
 Show FDB (forwarding database) table.
 
 `bridge fdb show eth0`
@@ -108,6 +104,24 @@ Get remote certificate details with curl.
 
 `curl --insecure -vvI https://site.domain.com 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'`
 
+### DNS
+Clear DNS cache.
+
+`sudo systemd-resolve --flush-caches`
+
+Clean dig output.
+ 
+ ```
+# only return value
+dig google.com +short
+# only return answer
+dig google.com +noall +answer
+```
+
+Query specific DNS resolver.
+
+`dig google.com @1.1.1.1`
+
 ### SSH
 Deploy SSH key.
 
@@ -123,20 +137,6 @@ Forward SSH agent.
 Skipping known hosts check.
 
 `ssh -o StrictHostKeyChecking=no user@host.com`
-
-### Dig
-Clean output.
- 
- ```
-# only return value
-dig google.com +short
-# only return answer
-dig google.com +noall +answer
-```
-
-Query specific DNS resolver.
-
-`dig google.com @1.1.1.1`
 
 ### Netstat
 Connection count by state.
