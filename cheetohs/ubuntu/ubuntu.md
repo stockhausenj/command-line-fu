@@ -100,9 +100,18 @@ Helpful tcpdump commands.
 
 <a href="https://hackertarget.com/tcpdump-examples/">commands</a>
 
+### SSL
 Get remote certificate details with curl.
 
 `curl --insecure -vvI https://site.domain.com 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'`
+
+Get remote certificate details with openssl.
+
+`openssl s_client -showcerts -connect site.domain.com`
+
+Read x509 certificate.
+
+`openssl x509 -in site.cer -text`
 
 ### DNS
 Clear DNS cache.
