@@ -105,9 +105,17 @@ Get remote certificate details with curl.
 
 `curl --insecure -vvI https://site.domain.com 2>&1 | awk 'BEGIN { cert=0 } /^\* SSL connection/ { cert=1 } /^\*/ { if (cert) print }'`
 
-Get remote certificate details with openssl.
+Get server certificate with openssl.
 
-`openssl s_client -showcerts -connect site.domain.com`
+`openssl s_client -showcerts -connect site.domain.com:443 </dev/null 2>/dev/null | openssl x509 -text -noout`
+
+Get server certificate, certificate chain and other SSL/TLS details with openssl.
+
+`openssl s_client -showcerts -connect site.domain.com:443 </dev/null 2>/dev/null`
+
+Get certificate chain and other SSL/TLS details with openssl.
+
+`openssl s_client -connect site.domain.com:443 </dev/null 2>/dev/null`
 
 Read x509 certificate.
 
