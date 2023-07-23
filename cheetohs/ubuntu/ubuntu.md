@@ -19,10 +19,6 @@ Show groups on newlines.
 
 `id | sed 's/,/\n/g'`
 
-Find and delete old files or folders.
-
-`find ./pattern* -mtime +10 -type f -delete`
-
 Compress and gzip directory.
 
 `tar -zcvf archive-name.tar.gz directory-name`
@@ -64,6 +60,19 @@ Change how apt handles a package.
 Check where a package will be installed from.
 
 `apt-cache policy _package_`
+
+## Find
+Find and delete.
+
+`find . -type f -name "*.log" -exec rm {} \;`
+
+Find and delete old files or folders.
+
+`find ./pattern* -mtime +10 -type f -delete`
+
+Search for files recursively to find an expression.
+
+`find . -type f -exec grep -l "nltk" {} \;`
 
 ## Vim
 Remove all empty lines.
