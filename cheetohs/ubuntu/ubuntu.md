@@ -19,10 +19,6 @@ Show groups on newlines.
 
 `id | sed 's/,/\n/g'`
 
-Compress and gzip directory.
-
-`tar -zcvf archive-name.tar.gz directory-name`
-
 Recursive search for largest files.
 
 `du -ckx | sort -n`
@@ -222,6 +218,15 @@ See which filesystems are supported.
 View scsi drives.
 
 `ls -1d /sys/class/scsi_device/*/device/block/*`
+
+Compress and gzip directory.
+
+`tar -zcvf archive-name.tar.gz directory-name`
+
+### File Sync
+Transfer only changed bits of data.
+
+`rsync [options] source destination`
 
 ## NTP
 View status.
