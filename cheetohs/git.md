@@ -1,3 +1,13 @@
+Maintain multiple git configurations.
+
+```bash
+[includeIf "gitdir:~/repos/work/"]
+    path = ~/repos/work/.gitconfig
+
+[includeIf "gitdir:~/repos/personal/"]
+    path = ~/repos/personal/.gitconfig
+```
+
 Cherry pick.
 
 `git cherry-pick <commit_id>`
