@@ -70,6 +70,15 @@ Search for files recursively to find an expression.
 
 `find . -type f -exec grep -l "nltk" {} \;`
 
+### Code Searching
+Silver Searcher
+
+`ag <pattern>`
+
+ugrep
+
+`ug <pattern>`
+
 ## Vim
 Remove all empty lines.
 
