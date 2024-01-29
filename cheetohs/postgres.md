@@ -1,4 +1,19 @@
-Find long running queries:
+List databases.
+```
+\l
+```
+
+Switch databases.
+```
+\c <database>
+```
+
+List tables.
+```
+\dt
+```
+
+Find long running queries.
 ```
 SELECT
   pid,
@@ -9,7 +24,7 @@ FROM pg_stat_activity
 WHERE (now() - pg_stat_activity.query_start) > interval '2 hours';
 ```
 
-Kill long running query:
+Kill long running query.
 ```
 SELECT pg_cancel_backend(__pid__);
 ```
