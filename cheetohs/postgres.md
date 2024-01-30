@@ -8,6 +8,11 @@ Switch databases.
 \c <database>
 ```
 
+Update search path.
+```
+SET search_path TO <schema>;
+```
+
 List tables.
 ```
 \dt
