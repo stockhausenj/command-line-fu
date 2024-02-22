@@ -110,6 +110,13 @@ List firewall rules by specification.
 
 `iptables -S`
 
+Delete firewall rule by rule number.
+
+```bash
+iptables -L --line-numbers
+iptables -D <CHAIN>(e.g INPUT) <LINE NUM>
+```
+
 Helpful tcpdump commands.
 
 <a href="https://hackertarget.com/tcpdump-examples/">commands</a>
