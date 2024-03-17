@@ -70,6 +70,11 @@ Search for files recursively to find an expression.
 
 `find . -type f -exec grep -l "nltk" {} \;`
 
+### File Searching
+Find occurences of a pattern in log, and then sort by highest occurences.
+
+`sort file.log | uniq -c | sort -bgr`
+
 ### Code Searching
 Silver Searcher
 
