@@ -11,10 +11,6 @@ sudo journalctl --vacuum-size=100M
 sudo journalctl --vacuum-time=10d
 ```
 
-Python 3.6 pip install.
-
-`python3.6 -m pip install <package>`
-
 Show groups on newlines.
 
 `id | sed 's/,/\n/g'`
