@@ -1,5 +1,4 @@
 # Systemd
-## Shutdown
 ```bash
 systemctl halt      # Shut down and halt the system
 systemctl poweroff  # Shut down and power-off the system
