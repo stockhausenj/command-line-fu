@@ -1,5 +1,18 @@
 # macOS
 
+## Processes
+View launch daemons.
+
+`ls /System/Library/LaunchDaemons/`
+
+View launch agents.
+
+`ls /System/Library/LaunchAgents/`
+
+Disable launch agent.
+
+`launchctl unload <agent>.plist`
+
 ## Interface
 ### Windows
 Minimize all windows.
